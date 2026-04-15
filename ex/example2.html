@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Form</title>
+</head>
+<body>
+<center>
+  <h2>Registration Form</h2>
+  <form action="#" method="post">
+    
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+    
+    <label for="department">Select your department:</label><br>
+    <select id="department" name="department" required>
+      <option value="">--Select--</option>
+      <option value="sales">CSE</option>
+      <option value="marketing">ECE</option>
+      <option value="hr"> EEE</option>
+      <option value="it">IT</option>
+    </select><br><br>
+    
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male" required>
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label><br><br>
+    
+    <input type="checkbox" id="terms" name="terms" required>
+    <label for="terms">I agree to the terms and conditions</label><br><br>
+    
+    <input type="submit" value="Submit">
+
+  </form>
+</center>
+</body>
+</html>
