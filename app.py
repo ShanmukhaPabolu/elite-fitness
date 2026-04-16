@@ -635,23 +635,23 @@ def ask_ai_chat():
         # Dictionary of intelligent prompts for different languages
         prompts = {
             "en": (
-                "You are 'Elite AI Coach', a fitness expert assistant. "
-                "Answer user questions about fitness, workouts, nutrition, training, and wellness. "
-                "Rules: "
-                "1. Be conversational and motivating. "
-                "2. Keep answers concise (1-3 sentences). "
-                "3. Provide practical, actionable advice. "
-                "4. If asked about non-fitness topics, politely redirect to fitness topics. "
+                "You are 'Elite AI Coach', a fitness expert assistant for the Elite Performance health platform. "
+                "You exist PURELY to answer questions about fitness, workouts, nutrition, training, and holistic health wellness. "
+                "CRITICAL RULES: "
+                "1. If a user asks about anything completely unrelated to fitness or health (like movies, programming, celebrities, politics), YOU MUST POLITELY DECLINE. Tell them clearly: 'I am a specialized Fitness AI Coach and I am only programmed to assist you with health, workout, and nutrition topics.' "
+                "2. Be professional, conversational and motivating. "
+                "3. Keep answers concise (1-3 sentences). "
+                "4. Provide practical, actionable health/fitness advice. "
                 "5. No markdown, plain text only."
             ),
             "hi": (
                 "आप 'एलीट एआई कोच' हैं, एक फिटनेस विशेषज्ञ सहायक। "
-                "फिटनेस, वर्कआउट, पोषण, प्रशिक्षण, और कल्याण के बारे में उपयोगकर्ता सवालों का जवाब दें। "
-                "नियम: "
-                "1. बातचीत और प्रेरक रहें। "
-                "2. उत्तर संक्षिप्त रखें (1-3 वाक्य)। "
-                "3. व्यावहारिक, कार्यान्वयन योग्य सलाह प्रदान करें। "
-                "4. यदि गैर-फिटनेस विषयों के बारे में पूछा जाए, तो विनम्रतापूर्वक फिटनेस की ओर पुनः निर्देशित करें। "
+                "आपका उद्देश्य केवल फिटनेस, वर्कआउट, पोषण और स्वास्थ्य के सवालों का जवाब देना है। "
+                "अहम नियम: "
+                "1. अगर उपयोगकर्ता फिटनेस के अलावा कोई अन्य विषय (जैसे फिल्में, राजनीति) पूछता है, तो विनम्रता से मना कर दें। कहें: 'मैं एक फिटनेस एआई कोच हूँ और मैं केवल स्वास्थ्य और फिटनेस से जुड़े सवालों का जवाब दे सकता हूँ।' "
+                "2. बातचीत और प्रेरक रहें। "
+                "3. उत्तर संक्षिप्त रखें (1-3 वाक्य)। "
+                "4. व्यावहारिक, कार्यान्वयन योग्य सलाह प्रदान करें। "
                 "5. कोई मार्कडाउन नहीं, केवल सादा पाठ।"
             )
         }
@@ -774,11 +774,11 @@ def get_fallback_response(user_msg, language="en"):
             "Setbacks are setup for comebacks! Learn from failures, adjust your approach, and come back stronger. Progress isn't linear, but it's still progress!",
         ],
         
-        # GENERAL/FALLBACK
+        # GENERAL/FALLBACK (Strict Fitness Scope)
         "default": [
-            "That's an interesting question! Tell me more about your fitness goals. Are you building muscle, losing weight, improving endurance, or something else?",
-            "Great question! I can help with workout routines, nutrition plans, recovery strategies, or motivation. What would you like to focus on?",
-            "I'm here to support your fitness journey! Share your goal and I'll provide specific, actionable advice. What's on your mind?",
+            "I am Elite Performance's AI Fitness Coach. I am strictly programmed to answer questions about health, nutrition, and workouts. How can I help you achieve your fitness goals today?",
+            "Sorry, but as a specialized Fitness AI Coach, I only answer questions related to exercise, diet, and wellness. What fitness goal are you working on?",
+            "I'm here to support your fitness journey! I can't assist with general knowledge outside of health and wellness, but I'd love to help you build a workout routine or nutrition plan. What's on your mind?",
         ]
     }
     
@@ -860,11 +860,11 @@ def get_fallback_response(user_msg, language="en"):
             "असफलताएं वापसी के लिए सेटअप हैं! विफलताओं से सीखें, अपने दृष्टिकोण को समायोजित करें, और अधिक मजबूत वापस आएं। प्रगति रैखिक नहीं है, लेकिन अभी भी प्रगति है!",
         ],
         
-        # GENERAL/FALLBACK
+        # GENERAL/FALLBACK (Strict Fitness Scope)
         "default": [
-            "यह एक दिलचस्प सवाल है! अपने फिटनेस लक्ष्यों के बारे में अधिक बताएं। क्या आप मांसपेशी बनाना चाहते हैं, वजन कम करना चाहते हैं, या सहनशीलता में सुधार करना चाहते हैं?",
-            "बढ़िया सवाल! मैं वर्कआउट रूटीन, पोषण योजनाओं, रिकवरी रणनीतियों, या प्रेरणा में मदद कर सकता हूँ। आप किस पर ध्यान केंद्रित करना चाहते हैं?",
-            "मैं आपकी फिटनेस यात्रा का समर्थन करने के लिए यहाँ हूँ! अपना लक्ष्य साझा करें और मैं विशिष्ट, कार्यान्वयन योग्य सलाह दूंगा।",
+            "मैं एलीट परफॉर्मेंस का एआई फिटनेस कोच हूँ। मैं केवल स्वास्थ्य, पोषण और वर्कआउट के बारे में सवालों का जवाब देने के लिए यहाँ हूँ। मैं आपकी फिटनेस यात्रा में कैसे मदद कर सकता हूँ?",
+            "क्षमा करें, लेकिन एक विशेषज्ञ फिटनेस एआई कोच के रूप में, मैं केवल व्यायाम, आहार और स्वास्थ्य से संबंधित सवालों का जवाब देता हूँ। आप किस वर्कआउट को लेकर पूछना चाहते हैं?",
+            "मैं आपकी फिटनेस का समर्थन करने के लिए यहाँ हूँ! मैं स्वास्थ्य के बाहर सामान्य जानकारी में मदद नहीं कर सकता, लेकिन मैं आपकी कसरत दिनचर्या में मदद कर सकता हूँ। आप क्या पूछना चाहते हैं?",
         ]
     }
     
