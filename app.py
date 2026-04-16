@@ -34,9 +34,9 @@ CORS(app, supports_credentials=True)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'rishik1074@gmail.com'
-app.config['MAIL_PASSWORD'] = 'uore hdzo kxmz xtaa'
-app.config['MAIL_DEFAULT_SENDER'] = ('Elite Performance', 'rishik1074@gmail.com')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'rishik1074@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
+app.config['MAIL_DEFAULT_SENDER'] = ('Elite Performance', os.environ.get('MAIL_USERNAME', 'rishik1074@gmail.com'))
 
 mail = Mail(app)
 
