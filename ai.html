@@ -1101,31 +1101,31 @@
             
             // --- Exercise Video Mapping ---
             const exerciseVideos = {
-                'squats': 'https://storage.googleapis.com/iot-smart-trainer/squat.mp4',
-                'lunges': 'https://storage.googleapis.com/iot-smart-trainer/lunge.mp4',
-                'push_ups': 'https://storage.googleapis.com/iot-smart-trainer/pushup.mp4',
-                'bicep_curls': 'https://storage.googleapis.com/iot-smart-trainer/bicep_curl.mp4',
-                'shoulder_press': 'https://storage.googleapis.com/iot-smart-trainer/shoulder_press.mp4',
-                'sit_ups': 'https://storage.googleapis.com/iot-smart-trainer/sit_up.mp4',
-                'crunches': 'https://storage.googleapis.com/iot-smart-trainer/crunches.mp4',
-                'russian_twists': 'https://storage.googleapis.com/iot-smart-trainer/russian_twist.mp4',
-                'leg_raises': 'https://storage.googleapis.com/iot-smart-trainer/leg_raise.mp4',
-                'tricep_dips': 'https://storage.googleapis.com/iot-smart-trainer/tricep_dip.mp4',
-                'glute_bridges': 'https://storage.googleapis.com/iot-smart-trainer/glute_bridge.mp4',
-                'plank': 'https://storage.googleapis.com/iot-smart-trainer/plank.mp4',
-                'side_plank': 'https://storage.googleapis.com/iot-smart-trainer/side_plank.mp4',
-                'lateral_raises': 'https://storage.googleapis.com/iot-smart-trainer/lateral_raise.mp4',
-                'overhead_tricep_extensions': 'https://storage.googleapis.com/iot-smart-trainer/overhead_tricep.mp4',
-                'high_knees': 'https://storage.googleapis.com/iot-smart-trainer/high_knees.mp4',
-                'jumping_jacks': 'https://storage.googleapis.com/iot-smart-trainer/jumping_jacks.mp4',
-                'burpees': 'https://storage.googleapis.com/iot-smart-trainer/burpee.mp4',
-                'mountain_climbers': 'https://storage.googleapis.com/iot-smart-trainer/mountain_climber.mp4',
-                'skater_jumps': 'https://storage.googleapis.com/iot-smart-trainer/skater_jumps.mp4',
-                'butt_kicks': 'https://storage.googleapis.com/iot-smart-trainer/butt_kicks.mp4',
-                'jump_squats': 'https://storage.googleapis.com/iot-smart-trainer/jump_squat.mp4',
-                'tree_pose': 'https://storage.googleapis.com/iot-smart-trainer/tree_pose.mp4',
-                'warrior_pose': 'https://storage.googleapis.com/iot-smart-trainer/warrior_pose.mp4',
-                'downward_dog': 'https://storage.googleapis.com/iot-smart-trainer/downward_dog.mp4'
+                'squats': '/squat.mp4',
+                'lunges': '',
+                'push_ups': '/pushup.mp4.mp4',
+                'bicep_curls': '/bicep.mp4',
+                'shoulder_press': '',
+                'sit_ups': '',
+                'crunches': '',
+                'russian_twists': '',
+                'leg_raises': '',
+                'tricep_dips': '',
+                'glute_bridges': '',
+                'plank': '',
+                'side_plank': '',
+                'lateral_raises': '',
+                'overhead_tricep_extensions': '',
+                'high_knees': '',
+                'jumping_jacks': '/jump.mp4.mp4',
+                'burpees': '',
+                'mountain_climbers': '/climber.mp4.mp4',
+                'skater_jumps': '',
+                'butt_kicks': '',
+                'jump_squats': '',
+                'tree_pose': '',
+                'warrior_pose': '',
+                'downward_dog': ''
             };
             
             // Hide loading screen after animation
@@ -1235,9 +1235,13 @@
                 }
                 
                 // Update workout video
+                const videoContainer = document.getElementById('workout-video-container');
                 if (exerciseVideos[selectedExercise]) {
                     workoutVideo.src = exerciseVideos[selectedExercise];
                     workoutVideoTitle.textContent = exerciseSelect.options[exerciseSelect.selectedIndex].text;
+                    if(videoContainer) videoContainer.style.display = 'block';
+                } else {
+                    if(videoContainer) videoContainer.style.display = 'none';
                 }
             }
             
