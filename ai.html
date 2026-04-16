@@ -1242,7 +1242,7 @@
             }
             
             function calculateAngle(a, b, c) {
-                if(!a || !b || !c || a.visibility < 0.5 || b.visibility < 0.5 || c.visibility < 0.5) return null;
+                if(!a || !b || !c || a.visibility < 0.3 || b.visibility < 0.3 || c.visibility < 0.3) return null; // relaxed vis
                 const radians = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
                 let angle = Math.abs(radians * 180.0 / Math.PI);
                 if (angle > 180.0) { angle = 360 - angle; }
@@ -1888,18 +1888,271 @@
                 }
             }
 
-            // --- Dummy functions for other exercises to avoid errors ---
-            function processLateralRaises(l) {}
-            function processOverheadTricepExtensions(l) {}
-            function processJumpingJacks(l) {}
-            function processRussianTwists(l) {}
-            function processTricepDips(l) {}
-            function processBurpees(l) {}
-            function processSkaterJumps(l) {}
-            function processJumpSquats(l) {}
-            function processPlank(l, isSide) {}
-            function processWarriorPose(l) {}
-            function processDownwardDog(l) {}
+            // --- Implemented functions for missing exercises ---
+            function processLateralRaises(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 11, r: 12}, {l: 13, r: 14}, {l: 15, r: 16}, {l: 23, r: 24}]);
+                if (!side) return;
+                const shoulder = landmarks[side === 'left' ? 11 : 12];
+                const hip = landmarks[side === 'left' ? 23 : 24];
+                const wrist = landmarks[side === 'left' ? 15 : 16];
+                const angle = calculateAngle(hip, shoulder, wrist);
+                if (angle === null) return;
+                
+                if (angle < 30) stage = "down";
+                if (angle > 70 && stage === 'down') {
+                    stage = "up";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) { stopWorkoutBtn.click(); }
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processOverheadTricepExtensions(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 11, r: 12}, {l: 13, r: 14}, {l: 15, r: 16}]);
+                if (!side) return;
+                const shoulder = landmarks[side === 'left' ? 11 : 12];
+                const elbow = landmarks[side === 'left' ? 13 : 14];
+                const wrist = landmarks[side === 'left' ? 15 : 16];
+                const angle = calculateAngle(shoulder, elbow, wrist);
+                if (angle === null) return;
+                
+                if (angle < 60) stage = "down";
+                if (angle > 140 && stage === 'down') {
+                    stage = "up";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processJumpingJacks(landmarks) {
+                const lAnkle = landmarks[27], rAnkle = landmarks[28];
+                const lWrist = landmarks[15], rWrist = landmarks[16];
+                const lShoulder = landmarks[11], rShoulder = landmarks[12];
+                
+                if (!lAnkle || !rAnkle || !lWrist || !rWrist || !lShoulder || !rShoulder) return;
+                // Leg distance approx
+                const legDist = Math.abs(lAnkle.x - rAnkle.x);
+                const armsUp = lWrist.y < lShoulder.y && rWrist.y < rShoulder.y;
+                const armsDown = lWrist.y > lShoulder.y && rWrist.y > rShoulder.y;
+                
+                if (legDist > 0.15 && armsUp) { stage = "up"; }
+                if (legDist < 0.1 && armsDown && stage === "up") {
+                    stage = "down";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processRussianTwists(landmarks) {
+                const lShoulder = landmarks[11], rShoulder = landmarks[12];
+                const lWrist = landmarks[15], rWrist = landmarks[16];
+                const lHip = landmarks[23], rHip = landmarks[24];
+                if (!lShoulder || !rShoulder || !lWrist || !rWrist) return;
+                
+                // Track midpoint of hands
+                const avgHandsX = (lWrist.x + rWrist.x) / 2;
+                const avgHipsX = (lHip.x + rHip.x) / 2;
+                
+                if (avgHandsX < avgHipsX - 0.1 && stage !== "left") {
+                    stage = "left";
+                    repCounter += 0.5;
+                } else if (avgHandsX > avgHipsX + 0.1 && stage !== "right") {
+                    stage = "right";
+                    repCounter += 0.5;
+                }
+                const fullReps = Math.floor(repCounter);
+                if (repCountElement.textContent != fullReps && fullReps > 0) {
+                    repCountElement.textContent = fullReps;
+                    speak(String(fullReps));
+                    if (fullReps >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processTricepDips(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 11, r: 12}, {l: 13, r: 14}, {l: 15, r: 16}]);
+                if (!side) return;
+                const shoulder = landmarks[side === 'left' ? 11 : 12];
+                const elbow = landmarks[side === 'left' ? 13 : 14];
+                const wrist = landmarks[side === 'left' ? 15 : 16];
+                const angle = calculateAngle(shoulder, elbow, wrist);
+                if (angle === null) return;
+                
+                if (angle < 90) stage = "down";
+                if (angle > 150 && stage === 'down') {
+                    stage = "up";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processBurpees(landmarks) {
+                const lShoulder = landmarks[11], lHip = landmarks[23], lAnkle = landmarks[27];
+                if (!lShoulder || !lHip || !lAnkle) return;
+                const isStanding = Math.abs(lShoulder.x - lAnkle.x) < 0.2 && lAnkle.y > lShoulder.y + 0.3;
+                const bodyAngle = calculateAngle(lShoulder, lHip, lAnkle);
+                
+                if (bodyAngle && bodyAngle > 150 && lShoulder.y > lAnkle.y - 0.2) {
+                    stage = "plank"; // down phase
+                }
+                if (isStanding && stage === "plank") {
+                    stage = "standing";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processSkaterJumps(landmarks) {
+                const lAnkle = landmarks[27], rAnkle = landmarks[28];
+                if (!lAnkle || !rAnkle) return;
+                // Measure bounding width via horizontal movement
+                if (lAnkle.x < 0.3 && (stage === null || stage === "right")) {
+                    stage = "left";
+                    repCounter += 0.5;
+                } else if (rAnkle.x > 0.7 && (stage === null || stage === "left")) {
+                    stage = "right";
+                    repCounter += 0.5;
+                }
+                const fullReps = Math.floor(repCounter);
+                if (repCountElement.textContent != fullReps && fullReps > 0) {
+                    repCountElement.textContent = fullReps;
+                    speak(String(fullReps));
+                    if (fullReps >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processJumpSquats(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 23, r: 24}, {l: 25, r: 26}, {l: 27, r: 28}]);
+                if (!side) return;
+                const hip = landmarks[side === 'left' ? 23 : 24];
+                const knee = landmarks[side === 'left' ? 25 : 26];
+                const ankle = landmarks[side === 'left' ? 27 : 28];
+                const ankleL = landmarks[27], ankleR = landmarks[28];
+                const kneeAngle = calculateAngle(hip, knee, ankle);
+                
+                if (kneeAngle === null) return;
+                
+                if (kneeAngle < 110) {
+                    stage = "down";
+                }
+                // Air jump inference: ankles are higher off the floor 
+                // We use y axis velocity or absolute change, but for simple tracker: 
+                const anklesOffFloor = (ankleL.y < 0.8 && ankleR.y < 0.8) && kneeAngle > 150; 
+                if (anklesOffFloor && stage === 'down') {
+                    stage = "up";
+                    repCounter++;
+                    speak(String(repCounter));
+                    repCountElement.textContent = repCounter;
+                    if (repCounter >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processPlank(landmarks, isSide) {
+                const side = getVisibleSide(landmarks, [{l: 11, r: 12}, {l: 23, r: 24}, {l: 27, r: 28}]);
+                if (!side) return;
+                const shoulder = landmarks[side === 'left' ? 11 : 12];
+                const hip = landmarks[side === 'left' ? 23 : 24];
+                const ankle = landmarks[side === 'left' ? 27 : 28];
+                
+                const bodyAngle = calculateAngle(shoulder, hip, ankle);
+                if (bodyAngle === null) return;
+                
+                const targetAngle = isSide ? 160 : 155;
+                if (bodyAngle > targetAngle) {
+                    if (!stage) {
+                        stage = "holding";
+                        if(timerInterval) clearInterval(timerInterval);
+                        timerInterval = setInterval(() => {
+                            secondsElapsed++;
+                            repCountElement.textContent = secondsElapsed + "s";
+                            if (secondsElapsed % 10 === 0) speak(`${secondsElapsed} seconds`);
+                            if (secondsElapsed >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                        }, 1000);
+                    }
+                } else {
+                    if (stage === "holding") {
+                        provideFeedback("Keep your body straight!");
+                        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+                        stage = null;
+                    }
+                }
+                stageDisplay.textContent = stage || '-';
+            }
+            
+            function processWarriorPose(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 23, r: 24}, {l: 25, r: 26}, {l: 27, r: 28}]);
+                if (!side) return;
+                const hipL = landmarks[23], hipR = landmarks[24];
+                const kneeL = landmarks[25], kneeR = landmarks[26];
+                const ankleL = landmarks[27], ankleR = landmarks[28];
+                const armL = landmarks[15], armR = landmarks[16], shoulderL = landmarks[11], shoulderR = landmarks[12];
+                
+                const leftLunge = calculateAngle(hipL, kneeL, ankleL);
+                const rightLunge = calculateAngle(hipR, kneeR, ankleR);
+                const isLunge = (leftLunge && leftLunge < 120) || (rightLunge && rightLunge < 120);
+                const armsOut = (armL && armR && armL.y < shoulderL.y + 0.1 && armR.y < shoulderR.y + 0.1);
+                
+                if (isLunge && armsOut) {
+                    if (!stage) {
+                        stage = "holding";
+                        if(timerInterval) clearInterval(timerInterval);
+                        timerInterval = setInterval(() => {
+                            secondsElapsed++;
+                            repCountElement.textContent = secondsElapsed + "s";
+                            if (secondsElapsed % 10 === 0) speak(`${secondsElapsed} seconds`);
+                            if (secondsElapsed >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                        }, 1000);
+                    }
+                } else {
+                    if (stage === "holding") {
+                        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+                        stage = null;
+                    }
+                }
+            }
+            
+            function processDownwardDog(landmarks) {
+                const side = getVisibleSide(landmarks, [{l: 11, r: 12}, {l: 23, r: 24}, {l: 27, r: 28}]);
+                if (!side) return;
+                const shoulder = landmarks[side === 'left' ? 11 : 12];
+                const hip = landmarks[side === 'left' ? 23 : 24];
+                const ankle = landmarks[side === 'left' ? 27 : 28];
+                const bodyAngle = calculateAngle(shoulder, hip, ankle);
+                
+                if (bodyAngle && bodyAngle < 110 && bodyAngle > 60) { // V-shape threshold
+                    if (!stage) {
+                        stage = "holding";
+                        if(timerInterval) clearInterval(timerInterval);
+                        timerInterval = setInterval(() => {
+                            secondsElapsed++;
+                            repCountElement.textContent = secondsElapsed + "s";
+                            if (secondsElapsed % 10 === 0) speak(`${secondsElapsed} seconds`);
+                            if (secondsElapsed >= parseInt(repTargetInput.value)) stopWorkoutBtn.click();
+                        }, 1000);
+                    }
+                } else {
+                    if (stage === "holding") {
+                        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+                        stage = null;
+                    }
+                }
+            }
 
             const pose = new Pose({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}` });
             pose.setOptions({
