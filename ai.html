@@ -2194,10 +2194,7 @@
                 stopWorkoutBtn.classList.remove('hidden');
                 
                 const selectedExercise = exerciseSelect.value;
-                if (exerciseVideos[selectedExercise]) {
-                    workoutVideo.src = exerciseVideos[selectedExercise];
-                    if(workoutVideo.style.display !== 'none' && workoutVideo.src) workoutVideo.play().catch(e => console.log('Video play interrupted', e));
-                }
+                // Defer to setupExerciseUI() which correctly toggles YouTube iframe vs native video elements
                 
                 if (!cameraInstance) {
                     cameraInstance = new Camera(videoElement, {
