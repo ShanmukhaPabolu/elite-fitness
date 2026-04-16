@@ -4441,7 +4441,7 @@
                             preload="auto"
                             style={{ opacity: videoReady ? 1 : 0, transition: 'opacity 0.3s' }}
                         >
-                            <source src="video.mp4.webm" type="video/mp4" />
+                            <source src="video.mp4.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                         <div className="hero-video-overlay"></div>
@@ -5918,7 +5918,7 @@
             // Preload video when app initializes
             useEffect(() => {
                 const video = document.createElement('video');
-                video.src = "video.mp4.webm";
+                video.src = "video.mp4.mp4";
                 video.preload = "auto";
                 video.muted = true;
                 video.load();
