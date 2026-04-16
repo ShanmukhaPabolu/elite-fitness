@@ -199,6 +199,10 @@ def athletic_image():
 def stocky_image():
     return send_from_directory(app.root_path, 'stocky.png')
 
+@app.route('/video.mp4.mp4')
+def video_file():
+    return send_from_directory(app.root_path, 'video.mp4.mp4')
+
 @app.route('/jj.png')
 def jj_image():
     return send_from_directory(app.root_path, 'jj.png')

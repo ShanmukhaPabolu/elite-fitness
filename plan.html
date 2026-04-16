@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Performance Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -33,16 +36,19 @@
             --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             cursor: none;
         }
+
         html {
             scroll-behavior: smooth;
             font-size: 16px;
         }
+
         body {
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-dark);
@@ -56,21 +62,24 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             background-attachment: fixed;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
+
         .gradient-text {
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .cyan-text {
             color: var(--accent-color);
         }
-        
+
         /* Enhanced Custom Cursor */
         .custom-cursor {
             position: fixed;
@@ -81,13 +90,14 @@
             transform: translate(-50%, -50%);
             transition: transform 0.1s ease;
         }
+
         .dumbbell-cursor {
             font-size: 40px;
             color: var(--accent-color);
             animation: rotate 3s linear infinite;
             filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9));
         }
-        
+
         /* Enhanced Smash Effect - More Dramatic */
         .smash-container {
             position: fixed;
@@ -98,6 +108,7 @@
             pointer-events: none;
             z-index: 10000;
         }
+
         .smash-particle {
             position: absolute;
             font-size: 16px;
@@ -105,12 +116,14 @@
             animation: smash 0.8s ease-out forwards;
             filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.7));
         }
+
         /* Breaking glass effect - more dramatic */
         .glass-break {
             position: absolute;
             pointer-events: none;
             animation: glassBreak 0.8s ease-out forwards;
         }
+
         .glass-shard {
             position: absolute;
             background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(0, 255, 255, 0.5));
@@ -118,7 +131,7 @@
             animation: shardFly 1s ease-out forwards;
             box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
         }
-        
+
         /* Floating Particles Background */
         .particles-container {
             position: fixed;
@@ -130,6 +143,7 @@
             z-index: -1;
             overflow: hidden;
         }
+
         .particle {
             position: absolute;
             background: var(--accent-color);
@@ -137,7 +151,7 @@
             opacity: 0.3;
             animation: float-particle 15s infinite linear;
         }
-        
+
         /* Background Video */
         .background-video {
             position: fixed;
@@ -149,7 +163,7 @@
             z-index: -2;
             opacity: 0.4;
         }
-        
+
         /* ========================================================================
            LOADING SCREEN - From First Code
            ======================================================================== */
@@ -166,12 +180,14 @@
             z-index: 10001;
             transition: opacity 0.5s ease-out;
         }
+
         .loading-container {
             text-align: center;
             position: relative;
             width: 100%;
             max-width: 500px;
         }
+
         .loading-animation {
             position: relative;
             width: 200px;
@@ -181,6 +197,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .loading-icon {
             font-size: 3rem;
             color: var(--accent-color);
@@ -188,6 +205,7 @@
             position: relative;
             z-index: 1;
         }
+
         .loading-circle {
             position: absolute;
             width: 100%;
@@ -198,6 +216,7 @@
             transform: rotate(0deg);
             animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
         }
+
         .loading-circle::before {
             content: '';
             position: absolute;
@@ -210,6 +229,7 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px var(--accent-color);
         }
+
         .loading-circle-alt {
             position: absolute;
             width: 80%;
@@ -220,6 +240,7 @@
             transform: rotate(0deg) scale(0.8);
             animation: spin-reverse 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
         }
+
         .loading-text h2 {
             font-size: 2.5rem;
             font-weight: 800;
@@ -231,6 +252,7 @@
             letter-spacing: 2px;
             font-family: 'Montserrat', sans-serif;
         }
+
         .loading-text p {
             color: var(--text-secondary);
             font-style: italic;
@@ -238,12 +260,14 @@
             font-size: 1.2rem;
             font-family: 'Montserrat', sans-serif;
         }
+
         .loading-progress {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
             margin-top: 1rem;
         }
+
         .loading-bar {
             width: 8px;
             height: 30px;
@@ -251,23 +275,27 @@
             border-radius: 4px;
             animation: loadingPulse 1.4s ease-in-out infinite;
         }
+
         .loading-bar:nth-child(2) {
             animation-delay: 0.2s;
             background: var(--secondary-gradient);
         }
+
         .loading-bar:nth-child(3) {
             animation-delay: 0.4s;
             background: var(--accent-gradient);
         }
+
         .loading-bar:nth-child(4) {
             animation-delay: 0.6s;
             background: var(--primary-gradient);
         }
+
         .loading-bar:nth-child(5) {
             animation-delay: 0.8s;
             background: var(--secondary-gradient);
         }
-        
+
         /* ========================================================================
            HEADER - ADJUSTED FOR SINGLE LINE
            ======================================================================== */
@@ -285,17 +313,20 @@
             opacity: 0;
             animation: slideDown 0.8s ease 0.3s forwards;
         }
+
         .header.scrolled {
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(30px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
             height: 80px;
         }
+
         .logo {
             display: flex;
             align-items: center;
@@ -310,15 +341,18 @@
             font-family: 'Montserrat', sans-serif;
             flex-shrink: 0;
         }
+
         .logo:hover {
             transform: scale(1.05);
         }
+
         .logo-icon {
             width: 2rem;
             height: 2rem;
             color: var(--accent-color);
             animation: pulse 2s infinite;
         }
+
         .nav {
             display: flex;
             align-items: center;
@@ -326,6 +360,7 @@
             flex-grow: 1;
             justify-content: flex-end;
         }
+
         .nav-item {
             display: flex;
             align-items: center;
@@ -346,6 +381,7 @@
             font-family: 'Montserrat', sans-serif;
             white-space: nowrap;
         }
+
         .nav-item::before {
             content: '';
             position: absolute;
@@ -357,22 +393,26 @@
             transition: left 0.3s ease;
             z-index: -1;
         }
+
         .nav-item:hover::before {
             left: 0;
         }
+
         .nav-item:hover {
             color: var(--bg-dark);
             transform: translateY(-3px);
         }
+
         .nav-item i {
             font-size: 0.85rem;
         }
-        
+
         /* Profile Dropdown - COMPACT */
         .profile-dropdown {
             position: relative;
             margin-left: 0.5rem;
         }
+
         .profile-btn {
             display: flex;
             align-items: center;
@@ -389,10 +429,12 @@
             font-family: 'Montserrat', sans-serif;
             white-space: nowrap;
         }
+
         .profile-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
         }
+
         .profile-avatar {
             width: 20px;
             height: 20px;
@@ -404,15 +446,18 @@
             color: var(--accent-color);
             flex-shrink: 0;
         }
+
         .profile-avatar i {
             font-size: 0.85rem;
         }
+
         .profile-btn span {
             max-width: 80px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
         .dropdown-menu {
             position: absolute;
             top: 100%;
@@ -430,11 +475,13 @@
             pointer-events: none;
             z-index: 1000;
         }
+
         .dropdown-menu.active {
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
         }
+
         .dropdown-item {
             display: flex;
             align-items: center;
@@ -446,21 +493,24 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
         }
+
         .dropdown-item:hover {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
         }
+
         .dropdown-item i {
             width: 16px;
             text-align: center;
             font-size: 0.9rem;
         }
+
         .dropdown-divider {
             height: 1px;
             background: var(--border-subtle);
             margin: 0.5rem 0;
         }
-        
+
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -470,7 +520,7 @@
             padding: 0.5rem;
             font-size: 1.5rem;
         }
-        
+
         /* ========================================================================
            HERO SECTION - With Video from First Code
            ======================================================================== */
@@ -482,6 +532,7 @@
             overflow: hidden;
             padding-top: 100px;
         }
+
         .hero-video-container {
             position: absolute;
             top: 0;
@@ -490,6 +541,7 @@
             height: 100%;
             z-index: -2;
         }
+
         .hero-video {
             width: 100%;
             height: 100%;
@@ -499,32 +551,34 @@
             will-change: opacity;
             transition: opacity 0.3s ease;
         }
+
         .hero-video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 212, 255, 0.15) 0%,
-                rgba(0, 0, 0, 0.7) 50%,
-                rgba(247, 37, 133, 0.15) 100%
-            );
+            background: linear-gradient(135deg,
+                    rgba(0, 212, 255, 0.15) 0%,
+                    rgba(0, 0, 0, 0.7) 50%,
+                    rgba(247, 37, 133, 0.15) 100%);
             z-index: -1;
         }
+
         .hero-content {
             position: relative;
             z-index: 1;
             width: 100%;
             padding-top: 60px;
         }
+
         .hero-text {
             max-width: 800px;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1.2s ease-out 0.6s forwards;
         }
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -542,12 +596,14 @@
             font-family: 'Montserrat', sans-serif;
             animation: slideInLeft 1s ease-out 0.7s both;
         }
+
         .play-icon {
             width: 1rem;
             height: 1rem;
             color: var(--accent-color);
             animation: pulse 2s infinite;
         }
+
         .hero-title {
             font-size: clamp(3rem, 10vw, 7rem);
             font-weight: 900;
@@ -557,16 +613,33 @@
             letter-spacing: -0.02em;
             font-family: 'Montserrat', sans-serif;
         }
+
         .hero-word {
             display: inline-block;
             opacity: 0;
             transform: translateY(80px) rotateX(90deg);
             animation: wordReveal 1s ease forwards;
         }
-        .hero-word:nth-child(1) { animation-delay: 0.8s; margin-right: 1rem; }
-        .hero-word:nth-child(2) { animation-delay: 1s; margin-right: 0.5rem; }
-        .hero-word:nth-child(3) { animation-delay: 1.2s; margin-right: 0.5rem; }
-        .hero-word:nth-child(4) { animation-delay: 1.4s; }
+
+        .hero-word:nth-child(1) {
+            animation-delay: 0.8s;
+            margin-right: 1rem;
+        }
+
+        .hero-word:nth-child(2) {
+            animation-delay: 1s;
+            margin-right: 0.5rem;
+        }
+
+        .hero-word:nth-child(3) {
+            animation-delay: 1.2s;
+            margin-right: 0.5rem;
+        }
+
+        .hero-word:nth-child(4) {
+            animation-delay: 1.4s;
+        }
+
         .hero-description {
             font-size: 1.3rem;
             color: var(--text-secondary);
@@ -576,9 +649,11 @@
             font-family: 'Montserrat', sans-serif;
             animation: fadeIn 1.5s ease-out 1.6s both;
         }
+
         .hero-description p {
             margin-bottom: 1rem;
         }
+
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
@@ -586,6 +661,7 @@
             flex-wrap: wrap;
             animation: fadeInUp 1s ease-out 1.8s both;
         }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -603,30 +679,36 @@
             letter-spacing: 0.5px;
             font-family: 'Montserrat', sans-serif;
         }
+
         .btn-primary {
             background: var(--primary-gradient);
             color: var(--bg-dark);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
+
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4), 0 0 15px var(--accent-color), 0 0 30px var(--accent-color);
         }
+
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             border: 1px solid var(--border-subtle);
             backdrop-filter: blur(10px);
         }
+
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
         }
+
         .btn-icon {
             width: 1.25rem;
             height: 1.25rem;
         }
+
         .hero-features {
             display: flex;
             flex-wrap: wrap;
@@ -634,6 +716,7 @@
             margin-top: 3rem;
             animation: fadeInUp 1s ease-out 2s both;
         }
+
         .hero-feature {
             display: flex;
             align-items: flex-start;
@@ -642,9 +725,19 @@
             opacity: 0;
             transform: translateY(30px);
         }
-        .hero-feature:nth-child(1) { animation: fadeInUp 0.8s ease 5.4s forwards; }
-        .hero-feature:nth-child(2) { animation: fadeInUp 0.8s ease 5.6s forwards; }
-        .hero-feature:nth-child(3) { animation: fadeInUp 0.8s ease 5.8s forwards; }
+
+        .hero-feature:nth-child(1) {
+            animation: fadeInUp 0.8s ease 5.4s forwards;
+        }
+
+        .hero-feature:nth-child(2) {
+            animation: fadeInUp 0.8s ease 5.6s forwards;
+        }
+
+        .hero-feature:nth-child(3) {
+            animation: fadeInUp 0.8s ease 5.8s forwards;
+        }
+
         .hero-feature-icon {
             width: 40px;
             height: 40px;
@@ -657,21 +750,26 @@
             flex-shrink: 0;
             animation: pulse 2s infinite;
         }
+
         .hero-feature-text {
             text-align: left;
         }
+
         .hero-feature-text h4 {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             font-family: 'Montserrat', sans-serif;
         }
+
         .hero-feature-text p {
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.5;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .scroll-indicator {
             position: absolute;
             bottom: 2rem;
@@ -685,6 +783,7 @@
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 2.2s forwards, bounce 2s infinite 2.2s;
         }
+
         .scroll-line {
             width: 2px;
             height: 40px;
@@ -693,7 +792,7 @@
             animation: scrollLine 2s infinite ease-in-out;
             box-shadow: 0 0 10px var(--accent-color);
         }
-        
+
         /* User Welcome Banner */
         .welcome-banner {
             position: relative;
@@ -703,14 +802,17 @@
             justify-content: center;
             overflow: hidden;
             padding-top: 100px;
-            padding-bottom: 50px; /* Reduced from 100px to 50px */
+            padding-bottom: 50px;
+            /* Reduced from 100px to 50px */
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(247, 37, 133, 0.1) 100%);
         }
+
         .welcome-content {
             text-align: center;
             max-width: 800px;
             padding: 0 2rem;
         }
+
         .welcome-title {
             font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 900;
@@ -719,43 +821,50 @@
             text-transform: uppercase;
             font-family: 'Montserrat', sans-serif;
         }
+
         .welcome-subtitle {
             font-size: 1.3rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
             font-family: 'Montserrat', sans-serif;
         }
+
         .user-stats {
             display: flex;
             justify-content: center;
             gap: 3rem;
             margin-top: 2rem;
         }
+
         .stat-item {
             text-align: center;
         }
+
         .stat-value {
             font-size: 2rem;
             font-weight: 800;
             color: var(--accent-color);
             margin-bottom: 0.5rem;
         }
+
         .stat-label {
             font-size: 0.9rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         /* ========================================================================
            PROGRAMS SECTION - With Images from First Code
            ======================================================================== */
         .programs-section {
-            padding: 4rem 0 8rem; /* Reduced top padding from 8rem to 4rem */
+            padding: 4rem 0 8rem;
+            /* Reduced top padding from 8rem to 4rem */
             background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
             position: relative;
             overflow: hidden;
         }
+
         .programs-section::before {
             content: '';
             position: absolute;
@@ -768,6 +877,7 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
+
         .section-header {
             text-align: center;
             max-width: 800px;
@@ -775,9 +885,11 @@
             opacity: 0;
             transform: translateY(30px);
         }
+
         .section-header.animate-in {
             animation: sectionHeaderReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
+
         .section-badge {
             display: inline-flex;
             align-items: center;
@@ -794,9 +906,11 @@
             opacity: 0;
             transform: translateY(20px);
         }
+
         .section-header.animate-in .section-badge {
             animation: fadeInUp 0.8s ease forwards, badgeFloat 3s ease-in-out 0.8s infinite;
         }
+
         .section-title {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
@@ -808,6 +922,7 @@
             position: relative;
             display: inline-block;
         }
+
         .section-title::after {
             content: '';
             position: absolute;
@@ -819,6 +934,7 @@
             animation: borderExpand 1s ease forwards;
             animation-delay: 0.5s;
         }
+
         .section-description {
             font-size: 1.125rem;
             color: var(--text-secondary);
@@ -826,6 +942,7 @@
             margin-bottom: 2rem;
             font-family: 'Montserrat', sans-serif;
         }
+
         .typing-text {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -833,6 +950,7 @@
             min-height: 1.5rem;
             font-family: 'Montserrat', sans-serif;
         }
+
         .typing-cursor {
             display: inline-block;
             width: 3px;
@@ -842,12 +960,14 @@
             vertical-align: text-bottom;
             margin-left: 2px;
         }
+
         .programs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2.5rem;
             margin-top: 4rem;
         }
+
         .program-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -863,6 +983,7 @@
             perspective: 1000px;
             transform-style: preserve-3d;
         }
+
         .program-card::before {
             content: '';
             position: absolute;
@@ -874,20 +995,25 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .program-card:hover::before {
             opacity: 1;
         }
+
         .program-card.animate-in {
             animation: programCardIntro 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
+
         .program-card.animate-out {
             animation: programCardOutro 0.6s ease-in forwards;
         }
+
         .program-card:hover {
             transform: translateY(-15px) scale(1.05);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 20px var(--program-color), 0 0 40px var(--program-color);
         }
+
         .program-glow {
             position: absolute;
             top: 0;
@@ -896,52 +1022,55 @@
             height: 100%;
             border-radius: 24px;
             opacity: 0;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                var(--program-color) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    var(--program-color) 0%,
+                    transparent 70%);
             transition: opacity 0.5s ease;
             pointer-events: none;
             z-index: -1;
         }
+
         .program-card:hover .program-glow {
             opacity: 0.3;
         }
+
         .program-image {
             position: relative;
             height: 250px;
             overflow: hidden;
         }
+
         .program-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
+
         .program-card:hover img {
             transform: scale(1.05);
         }
+
         .program-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 0, 0, 0.6),
-                rgba(0, 0, 0, 0.3)
-            );
+            background: linear-gradient(135deg,
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.3));
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .program-card:hover .program-overlay {
             opacity: 1;
         }
+
         .program-icon-container {
             width: 60px;
             height: 60px;
@@ -954,18 +1083,22 @@
             transition: transform 0.3s ease;
             box-shadow: 0 0 20px var(--program-color);
         }
+
         .program-card:hover .program-icon-container {
             transform: scale(1);
         }
+
         .program-icon {
             width: 30px;
             height: 30px;
             color: white;
             font-size: 30px;
         }
+
         .program-content {
             padding: 2rem;
         }
+
         .program-subtitle {
             font-size: 0.8rem;
             font-weight: 600;
@@ -974,7 +1107,9 @@
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .program-title {
             font-size: 1.75rem;
             font-weight: 700;
@@ -982,15 +1117,18 @@
             color: var(--text-primary);
             font-family: 'Montserrat', sans-serif;
         }
+
         .program-description {
             color: var(--text-secondary);
             margin-bottom: 2rem;
             line-height: 1.6;
             font-family: 'Montserrat', sans-serif;
         }
+
         .program-features {
             margin-bottom: 2rem;
         }
+
         .feature-item {
             display: flex;
             align-items: center;
@@ -999,6 +1137,7 @@
             color: var(--text-secondary);
             font-family: 'Montserrat', sans-serif;
         }
+
         .feature-dot {
             width: 6px;
             height: 6px;
@@ -1006,6 +1145,7 @@
             border-radius: 50%;
             flex-shrink: 0;
         }
+
         .program-button {
             width: 100%;
             padding: 1rem 1.5rem;
@@ -1025,6 +1165,7 @@
             text-decoration: none;
             font-family: 'Montserrat', sans-serif;
         }
+
         .program-button::before {
             content: '';
             position: absolute;
@@ -1036,29 +1177,51 @@
             transition: left 0.3s ease;
             z-index: -1;
         }
+
         .program-button:hover::before {
             left: 0;
         }
+
         .program-button:hover {
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px var(--program-color);
         }
+
         .button-icon {
             width: 1rem;
             height: 1rem;
             transition: transform 0.3s ease;
         }
+
         .program-button:hover .button-icon {
             transform: translateX(5px);
         }
-        .program-card:nth-child(1) { --program-color: var(--accent-color); }
-        .program-card:nth-child(2) { --program-color: var(--accent-orange); }
-        .program-card:nth-child(3) { --program-color: var(--accent-pink); }
-        .program-card:nth-child(4) { --program-color: #00B4D8; }
-        .program-card:nth-child(5) { --program-color: #F72585; }
-        .program-card:nth-child(6) { --program-color: #06FFA5; }
-        
+
+        .program-card:nth-child(1) {
+            --program-color: var(--accent-color);
+        }
+
+        .program-card:nth-child(2) {
+            --program-color: var(--accent-orange);
+        }
+
+        .program-card:nth-child(3) {
+            --program-color: var(--accent-pink);
+        }
+
+        .program-card:nth-child(4) {
+            --program-color: #00B4D8;
+        }
+
+        .program-card:nth-child(5) {
+            --program-color: #F72585;
+        }
+
+        .program-card:nth-child(6) {
+            --program-color: #06FFA5;
+        }
+
         /* ========================================================================
            CORE FEATURES SECTION - ENHANCED VERSION
            ======================================================================== */
@@ -1068,6 +1231,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .core-features-section::before {
             content: '';
             position: absolute;
@@ -1080,12 +1244,14 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
+
         .core-features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
             margin-top: 4rem;
         }
+
         .core-feature-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -1107,8 +1273,9 @@
             filter: blur(5px);
             perspective: 1000px;
             transform-style: preserve-3d;
-            
+
         }
+
         .core-feature-card::before {
             content: '';
             position: absolute;
@@ -1116,30 +1283,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                var(--feature-glow-color, rgba(0, 255, 255, 0.1)) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    var(--feature-glow-color, rgba(0, 255, 255, 0.1)) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
             z-index: -1;
         }
+
         .core-feature-card:hover::before {
             opacity: 1;
         }
+
         .core-feature-card.animate-in {
             animation: coreFeatureIntro 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
+
         .core-feature-card.animate-out {
             animation: coreFeatureOutro 0.4s ease-in forwards;
         }
+
         .core-feature-card:hover {
             transform: translateY(-15px) scale(1.05);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 20px var(--feature-glow-color, var(--accent-color)), 0 0 40px var(--feature-glow-color, var(--accent-color));
         }
+
         .core-feature-icon-wrapper {
             width: 120px;
             height: 120px;
@@ -1155,11 +1325,13 @@
             border: 2px solid var(--feature-color, var(--accent-color));
             box-shadow: 0 0 30px var(--feature-glow-color, var(--accent-color));
         }
+
         .core-feature-icon {
             font-size: 3.5rem;
             color: var(--feature-color, var(--accent-color));
             z-index: 1;
         }
+
         .core-feature-title {
             font-size: 2rem;
             font-weight: 800;
@@ -1171,6 +1343,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
         .core-feature-description {
             color: var(--text-secondary);
             line-height: 1.8;
@@ -1180,41 +1353,47 @@
             position: relative;
             font-size: 1.1rem;
         }
-        .core-feature-card:nth-child(1) { 
-            animation-delay: 0.1s; 
+
+        .core-feature-card:nth-child(1) {
+            animation-delay: 0.1s;
             --feature-color: var(--accent-color);
             --feature-glow-color: rgba(0, 255, 255, 0.3);
         }
-        .core-feature-card:nth-child(2) { 
-            animation-delay: 0.2s; 
+
+        .core-feature-card:nth-child(2) {
+            animation-delay: 0.2s;
             --feature-color: var(--accent-orange);
             --feature-glow-color: rgba(255, 107, 53, 0.3);
         }
-        .core-feature-card:nth-child(3) { 
-            animation-delay: 0.3s; 
+
+        .core-feature-card:nth-child(3) {
+            animation-delay: 0.3s;
             --feature-color: var(--accent-pink);
             --feature-glow-color: rgba(247, 37, 133, 0.3);
         }
-        .core-feature-card:nth-child(4) { 
-            animation-delay: 0.4s; 
+
+        .core-feature-card:nth-child(4) {
+            animation-delay: 0.4s;
             --feature-color: #00B4D8;
             --feature-glow-color: rgba(0, 180, 216, 0.3);
-            
-                    
+
+
         }
-        .core-feature-card:nth-child(5) { 
-            animation-delay: 0.5s; 
+
+        .core-feature-card:nth-child(5) {
+            animation-delay: 0.5s;
             --feature-color: #06FFA5;
             --feature-glow-color: rgba(6, 255, 165, 0.3);
-        
-                    
+
+
         }
-        .core-feature-card:nth-child(6) { 
-            animation-delay: 0.6s; 
+
+        .core-feature-card:nth-child(6) {
+            animation-delay: 0.6s;
             --feature-color: #9D4EDD;
             --feature-glow-color: rgba(157, 78, 221, 0.3);
         }
-        
+
         /* Floating Icons for all Core Features */
         .floating-icons {
             position: absolute;
@@ -1225,43 +1404,49 @@
             pointer-events: none;
             z-index: 1;
         }
+
         .floating-icon {
             position: absolute;
             font-size: 1.8rem;
             animation: float-icon 4s infinite ease-in-out;
             opacity: 0.3;
         }
+
         .floating-icon:nth-child(1) {
             top: 15%;
             left: 10%;
             animation-delay: 0s;
             color: var(--feature-color, var(--accent-color));
         }
+
         .floating-icon:nth-child(2) {
             top: 65%;
             left: 80%;
             animation-delay: 1s;
             color: var(--feature-color, var(--accent-color));
         }
+
         .floating-icon:nth-child(3) {
             top: 35%;
             left: 70%;
             animation-delay: 2s;
             color: var(--feature-color, var(--accent-color));
         }
+
         .floating-icon:nth-child(4) {
             top: 75%;
             left: 20%;
             animation-delay: 3s;
             color: var(--feature-color, var(--accent-color));
         }
+
         .floating-icon:nth-child(5) {
             top: 25%;
             left: 50%;
             animation-delay: 1.5s;
             color: var(--feature-color, var(--accent-color));
         }
-        
+
         /* ========================================================================
            SPORTS SECTION - DYNAMIC SCROLLING
            ======================================================================== */
@@ -1271,6 +1456,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .sports-section::before {
             content: '';
             position: absolute;
@@ -1283,6 +1469,7 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
+
         .sports-container {
             position: relative;
             display: flex;
@@ -1290,6 +1477,7 @@
             gap: 4rem;
             perspective: 1000px;
         }
+
         .sport-card {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
@@ -1303,39 +1491,47 @@
             margin: 0;
             position: relative;
         }
+
         .sport-card.animate-in-left {
             opacity: 1;
             transform: translateX(0) rotateY(0);
             animation: slideInLeft 0.8s ease forwards;
         }
+
         .sport-card.animate-in-right {
             opacity: 1;
             transform: translateX(0) rotateY(0);
             animation: slideInRight 0.8s ease forwards;
         }
+
         .sport-card.animate-out {
             opacity: 0;
             transform: translateY(50px) scale(0.95);
             transition: all 0.5s ease;
         }
+
         .sport-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-color), 0 0 40px var(--accent-color);
         }
+
         .sport-image {
             flex: 0 0 40%;
             position: relative;
             overflow: hidden;
         }
+
         .sport-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
+
         .sport-card:hover .sport-image img {
             transform: scale(1.05);
         }
+
         .sport-content {
             flex: 0 0 60%;
             padding: 3rem;
@@ -1343,43 +1539,54 @@
             flex-direction: column;
             justify-content: center;
         }
+
         .sport-title {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
             color: var(--text-primary);
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .sport-subtitle {
             font-size: 1.5rem;
             color: var(--accent-color);
             margin-bottom: 1.5rem;
             font-weight: 600;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .sport-description {
             color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 2rem;
             font-size: 1.1rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .sport-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
+
         .sport-feature {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             color: var(--text-secondary);
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .sport-feature-icon {
             color: var(--accent-color);
             flex-shrink: 0;
         }
+
         .sports-glow {
             position: absolute;
             top: 0;
@@ -1388,22 +1595,22 @@
             height: 100%;
             border-radius: 24px;
             opacity: 0;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 255, 255, 0.3) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(0, 255, 255, 0.3) 0%,
+                    transparent 70%);
             transition: opacity 0.5s ease;
             pointer-events: none;
             z-index: -1;
         }
+
         .sport-card:hover .sports-glow {
             opacity: 1;
         }
+
         .sports-indicators {
             display: none;
         }
-        
+
         /* ========================================================================
            DIET PLANS SECTION - ENHANCED DYNAMIC EFFECTS - RESTORED ALL CARDS
            ======================================================================== */
@@ -1413,6 +1620,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .diet-section::before {
             content: '';
             position: absolute;
@@ -1425,12 +1633,14 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
+
         .diet-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 4rem;
         }
+
         .diet-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -1442,51 +1652,64 @@
             transform: translateY(40px) rotateX(90deg);
             position: relative;
         }
+
         .diet-card.animate-in {
             opacity: 1;
             transform: translateY(0) rotateX(0);
             animation: flipIn 0.8s ease forwards;
         }
+
         .diet-card:hover {
             transform: translateY(-10px) rotateX(5deg);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-color), 0 0 40px var(--accent-color);
         }
+
         .diet-header {
             padding: 1.5rem;
             background: rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid var(--border-subtle);
             text-align: center;
         }
+
         .diet-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--accent-color);
             animation: float 3s ease-in-out infinite;
         }
+
         .diet-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .diet-subtitle {
             font-size: 1rem;
             color: var(--text-secondary);
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .diet-content {
             padding: 1.5rem;
         }
+
         .diet-description {
             color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 1.5rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .diet-features {
             margin-bottom: 1.5rem;
         }
+
         .diet-feature {
             display: flex;
             align-items: center;
@@ -1494,12 +1717,14 @@
             margin-bottom: 0.75rem;
             color: var(--text-secondary);
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .diet-feature-icon {
             color: var(--accent-color);
             flex-shrink: 0;
         }
-        
+
         .diet-card::before {
             content: '';
             position: absolute;
@@ -1507,26 +1732,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 255, 255, 0.2) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1;
         }
-        
+
         .diet-card:hover::before {
             opacity: 1;
         }
-        
+
         /* Enhanced diet section title animation */
         .diet-section .section-title {
             position: relative;
             display: inline-block;
         }
+
         .diet-section .section-title::after {
             content: '';
             position: absolute;
@@ -1538,10 +1762,12 @@
             animation: borderExpand 1s ease forwards;
             animation-delay: 0.5s;
         }
+
         .diet-section .section-badge {
             position: relative;
             display: inline-block;
         }
+
         .diet-section .section-badge::after {
             content: '';
             position: absolute;
@@ -1554,11 +1780,12 @@
             transform: translate(-50%, -50%);
             transition: width 0.6s ease, height 0.6s ease;
         }
+
         .diet-section .section-badge:hover::after {
             width: 100px;
             height: 100px;
         }
-        
+
         /* ========================================================================
            ABOUT SECTION
            ======================================================================== */
@@ -1568,6 +1795,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .about-section::before {
             content: '';
             position: absolute;
@@ -1575,24 +1803,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
+
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 5rem;
             align-items: center;
         }
+
         .about-text {
             opacity: 0;
             transform: translateY(30px);
         }
+
         .about-text.animate-in {
             animation: fadeInUp 1s ease forwards;
         }
+
         .about-image {
             position: relative;
             height: 400px;
@@ -1603,29 +1835,35 @@
             transform: scale(0.8) rotateY(90deg);
             transform: scale(0.8) rotateY(90deg);
         }
+
         .about-image.animate-in {
             animation: rotateIn 1s ease forwards;
         }
+
         .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .about-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 3rem;
         }
+
         .about-feature {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
             transition: transform 0.3s ease;
         }
+
         .about-feature:hover {
             transform: translateY(-5px) scale(1.05);
         }
+
         .about-feature-icon {
             width: 50px;
             height: 50px;
@@ -1639,19 +1877,23 @@
             font-size: 1.2rem;
             animation: pulse 2s infinite;
         }
+
         .about-feature-text h4 {
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .about-feature-text p {
             font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.5;
             font-family: 'Montserrat', sans-serif';
+
         }
-        
+
         /* ========================================================================
            FOOTER
            ======================================================================== */
@@ -1662,6 +1904,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .footer::before {
             content: '';
             position: absolute;
@@ -1669,28 +1912,32 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(247, 37, 133, 0.03) 0%, transparent 50%);
             z-index: 0;
         }
+
         .footer-content {
             margin-bottom: 3rem;
             position: relative;
             z-index: 1;
         }
+
         .footer-main {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 4rem;
             align-items: start;
         }
+
         .footer-brand {
             max-width: 300px;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease forwards;
         }
+
         .footer-logo {
             display: flex;
             align-items: center;
@@ -1701,17 +1948,22 @@
             margin-bottom: 1rem;
             text-decoration: none;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .footer-description {
             color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 2rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .social-links {
             display: flex;
             gap: 1rem;
         }
+
         .social-link {
             width: 40px;
             height: 40px;
@@ -1725,12 +1977,14 @@
             text-decoration: none;
             cursor: none;
         }
+
         .social-link:hover {
             background: var(--primary-gradient);
             color: white;
             transform: translateY(-2px) scale(1.1);
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
         }
+
         .footer-links {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1739,14 +1993,25 @@
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease 0.2s forwards;
         }
+
         .link-group {
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease forwards;
         }
-        .link-group:nth-child(1) { animation-delay: 0.3s; }
-        .link-group:nth-child(2) { animation-delay: 0.4s; }
-        .link-group:nth-child(3) { animation-delay: 0.5s; }
+
+        .link-group:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .link-group:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .link-group:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
         .link-group h4 {
             color: var(--text-primary);
             font-weight: 600;
@@ -1755,7 +2020,9 @@
             letter-spacing: 0.5px;
             font-size: 0.9rem;
             font-family: 'Montserrat', sans-serif';
+
         }
+
         .link-group a {
             display: block;
             color: var(--text-secondary);
@@ -1765,11 +2032,13 @@
             font-family: 'Montserrat', sans-serif;
             cursor: none;
         }
+
         .link-group a:hover {
             color: var(--accent-color);
             transform: translateX(5px);
             display: inline-block;
         }
+
         .footer-bottom {
             border-top: 1px solid var(--border-subtle);
             padding-top: 2rem;
@@ -1778,6 +2047,7 @@
             opacity: 0;
             animation: fadeIn 0.8s ease 0.6s forwards;
         }
+
         .footer-bottom-content {
             display: flex;
             justify-content: space-between;
@@ -1785,10 +2055,12 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+
         .footer-bottom-links {
             display: flex;
             gap: 2rem;
         }
+
         .footer-bottom-links a {
             color: var(--text-muted);
             text-decoration: none;
@@ -1796,10 +2068,11 @@
             font-family: 'Montserrat', sans-serif;
             cursor: none;
         }
+
         .footer-bottom-links a:hover {
             color: var(--text-secondary);
         }
-        
+
         /* Health and Hygiene Blogs Page Styles - Enhanced */
         .health-blogs-page {
             position: fixed;
@@ -1813,11 +2086,11 @@
             transform: translateX(100%);
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .health-blogs-page.active {
             transform: translateX(0);
         }
-        
+
         .health-blogs-header {
             position: sticky;
             top: 0;
@@ -1829,7 +2102,7 @@
             border-bottom: 1px solid var(--border-subtle);
             padding: 1.5rem 0;
         }
-        
+
         .health-blogs-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -1838,7 +2111,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .health-blogs-logo {
             display: flex;
             align-items: center;
@@ -1849,12 +2122,12 @@
             text-decoration: none;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .health-blogs-nav {
             display: flex;
             gap: 2rem;
         }
-        
+
         .health-blogs-nav-item {
             color: var(--text-secondary);
             text-decoration: none;
@@ -1862,11 +2135,11 @@
             transition: color 0.3s ease;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .health-blogs-nav-item:hover {
             color: var(--accent-color);
         }
-        
+
         .health-blogs-back {
             display: flex;
             align-items: center;
@@ -1883,26 +2156,26 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
         }
-        
+
         .health-blogs-back:hover {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
         }
-        
+
         .health-blogs-content {
             padding: 4rem 2rem;
             position: relative;
             z-index: 2;
         }
-        
+
         .health-blogs-hero {
             text-align: center;
             max-width: 800px;
             margin: 0 auto 5rem;
         }
-        
+
         .health-blogs-title {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 900;
@@ -1914,7 +2187,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .health-blogs-title::after {
             content: '';
             position: absolute;
@@ -1926,7 +2199,7 @@
             animation: borderExpand 1s ease forwards;
             animation-delay: 0.5s;
         }
-        
+
         .health-blogs-description {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -1934,7 +2207,7 @@
             margin-bottom: 3rem;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         /* Health Awareness Carousel Styles - Enhanced */
         .health-awareness-carousel {
             position: relative;
@@ -1945,43 +2218,43 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             background: rgba(0, 0, 0, 0.3);
         }
-        
+
         .health-awareness-track {
             display: flex;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .health-awareness-slide {
             min-width: 100%;
             position: relative;
             height: 500px;
             overflow: hidden;
         }
-        
+
         .health-awareness-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .health-awareness-slide:hover img {
             transform: scale(1.05);
         }
-        
+
         .health-awareness-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             padding: 3rem;
         }
-        
+
         .health-awareness-text-container {
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
@@ -1992,7 +2265,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .health-awareness-text-container::before {
             content: '';
             position: absolute;
@@ -2000,21 +2273,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 255, 255, 0.2) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: -1;
         }
-        
+
         .health-awareness-text-container:hover::before {
             opacity: 1;
         }
-        
+
         .health-awareness-text {
             font-size: 1.8rem;
             font-weight: 700;
@@ -2025,7 +2296,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .health-awareness-subtitle {
             font-size: 1.1rem;
             color: var(--accent-color);
@@ -2034,7 +2305,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .health-awareness-nav {
             position: absolute;
             bottom: 2rem;
@@ -2043,7 +2314,7 @@
             display: flex;
             gap: 1rem;
         }
-        
+
         .health-awareness-dot {
             width: 12px;
             height: 12px;
@@ -2052,13 +2323,13 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .health-awareness-dot.active {
             background: var(--accent-color);
             transform: scale(1.2);
             box-shadow: 0 0 10px var(--accent-color);
         }
-        
+
         .health-awareness-arrow {
             position: absolute;
             top: 50%;
@@ -2078,28 +2349,28 @@
             transition: all 0.3s ease;
             z-index: 10;
         }
-        
+
         .health-awareness-arrow:hover {
             background: rgba(0, 0, 0, 0.7);
             transform: translateY(-50%) scale(1.1);
             box-shadow: 0 0 15px var(--accent-color);
         }
-        
+
         .health-awareness-prev {
             left: 2rem;
         }
-        
+
         .health-awareness-next {
             right: 2rem;
         }
-        
+
         .health-blogs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2.5rem;
             margin-bottom: 5rem;
         }
-        
+
         .health-blog-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -2112,7 +2383,7 @@
             flex-direction: column;
             position: relative;
         }
-        
+
         .health-blog-card::before {
             content: '';
             position: absolute;
@@ -2120,33 +2391,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 255, 255, 0.2) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1;
         }
-        
+
         .health-blog-card:hover::before {
             opacity: 1;
         }
-        
+
         .health-blog-card:hover {
             transform: translateY(-15px) scale(1.03);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-color), 0 0 40px var(--accent-color);
         }
-        
+
         .health-blog-image {
             height: 200px;
             overflow: hidden;
             position: relative;
         }
-        
+
         .health-blog-image::after {
             content: '';
             position: absolute;
@@ -2154,30 +2423,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0, 0, 0, 0.7) 100%
-            );
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.7) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .health-blog-card:hover .health-blog-image::after {
             opacity: 1;
         }
-        
+
         .health-blog-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .health-blog-card:hover .health-blog-image img {
             transform: scale(1.05);
         }
-        
+
         .health-blog-content {
             padding: 2rem;
             flex-grow: 1;
@@ -2186,7 +2453,7 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .health-blog-category {
             display: inline-block;
             padding: 0.5rem 1rem;
@@ -2200,12 +2467,12 @@
             font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
         }
-        
+
         .health-blog-card:hover .health-blog-category {
             background: rgba(0, 255, 255, 0.2);
             box-shadow: 0 0 10px var(--accent-color);
         }
-        
+
         .health-blog-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -2215,7 +2482,7 @@
             line-height: 1.3;
             position: relative;
         }
-        
+
         .health-blog-title::after {
             content: '';
             position: absolute;
@@ -2226,11 +2493,11 @@
             background: var(--primary-gradient);
             transition: width 0.3s ease;
         }
-        
+
         .health-blog-card:hover .health-blog-title::after {
             width: 100%;
         }
-        
+
         .health-blog-excerpt {
             color: var(--text-secondary);
             line-height: 1.6;
@@ -2239,7 +2506,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
         }
-        
+
         .health-blog-read-more {
             display: inline-flex;
             align-items: center;
@@ -2258,7 +2525,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .health-blog-read-more::before {
             content: '';
             position: absolute;
@@ -2270,32 +2537,32 @@
             transition: left 0.3s ease;
             z-index: -1;
         }
-        
+
         .health-blog-read-more:hover::before {
             left: 0;
         }
-        
+
         .health-blog-read-more:hover {
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px var(--accent-color);
         }
-        
+
         .health-blog-read-more i {
             transition: transform 0.3s ease;
         }
-        
+
         .health-blog-read-more:hover i {
             transform: translateX(5px);
         }
-        
+
         .popular-posts-section {
             padding: 4rem 0;
             background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
             position: relative;
             overflow: hidden;
         }
-        
+
         .popular-posts-section::before {
             content: '';
             position: absolute;
@@ -2308,18 +2575,18 @@
                 radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.03) 0%, transparent 50%);
             z-index: -1;
         }
-        
+
         .popular-posts-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
+
         .popular-posts-header {
             text-align: center;
             margin-bottom: 3rem;
         }
-        
+
         .popular-posts-title {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
@@ -2329,7 +2596,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .popular-posts-title::after {
             content: '';
             position: absolute;
@@ -2341,7 +2608,7 @@
             animation: borderExpand 1s ease forwards;
             animation-delay: 0.5s;
         }
-        
+
         .popular-posts-description {
             font-size: 1.1rem;
             color: var(--text-secondary);
@@ -2349,13 +2616,13 @@
             margin: 0 auto;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .popular-posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-        
+
         .popular-post-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
@@ -2368,7 +2635,7 @@
             flex-direction: column;
             position: relative;
         }
-        
+
         .popular-post-card::before {
             content: '';
             position: absolute;
@@ -2376,33 +2643,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(247, 37, 133, 0.2) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(247, 37, 133, 0.2) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1;
         }
-        
+
         .popular-post-card:hover::before {
             opacity: 1;
         }
-        
+
         .popular-post-card:hover {
             transform: translateY(-10px) scale(1.03);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-pink), 0 0 40px var(--accent-pink);
         }
-        
+
         .popular-post-image {
             height: 180px;
             overflow: hidden;
             position: relative;
         }
-        
+
         .popular-post-image::after {
             content: '';
             position: absolute;
@@ -2410,30 +2675,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0, 0, 0, 0.7) 100%
-            );
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.7) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .popular-post-card:hover .popular-post-image::after {
             opacity: 1;
         }
-        
+
         .popular-post-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .popular-post-card:hover .popular-post-image img {
             transform: scale(1.05);
         }
-        
+
         .popular-post-content {
             padding: 1.5rem;
             flex-grow: 1;
@@ -2442,7 +2705,7 @@
             position: relative;
             z-index: 2;
         }
-        
+
         .popular-post-category {
             display: inline-block;
             padding: 0.3rem 0.8rem;
@@ -2456,29 +2719,31 @@
             font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
         }
-        
+
         .popular-post-card:hover .popular-post-category {
             background: rgba(247, 37, 133, 0.2);
             box-shadow: 0 0 10px var(--accent-pink);
         }
+
         /* Page transition overlay for sliding effect */
-.page-transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-dark);
-    z-index: 10000;
-    pointer-events: none;
-    transform: translateY(100%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.page-transition-overlay.active {
-    transform: translateY(0);
-    pointer-events: all;
-}
-        
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            z-index: 10000;
+            pointer-events: none;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-transition-overlay.active {
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
         .popular-post-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -2488,7 +2753,7 @@
             line-height: 1.3;
             position: relative;
         }
-        
+
         .popular-post-title::after {
             content: '';
             position: absolute;
@@ -2499,11 +2764,11 @@
             background: var(--accent-gradient);
             transition: width 0.3s ease;
         }
-        
+
         .popular-post-card:hover .popular-post-title::after {
             width: 100%;
         }
-        
+
         .popular-post-excerpt {
             color: var(--text-secondary);
             line-height: 1.5;
@@ -2512,7 +2777,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.9rem;
         }
-        
+
         .popular-post-read-more {
             display: inline-flex;
             align-items: center;
@@ -2524,23 +2789,23 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-        
+
         .popular-post-read-more:hover {
             color: var(--accent-pink);
             transform: translateX(3px);
         }
-        
+
         /* Blog Article Page Styles - Enhanced */
         .blog-article-page {
             padding: 4rem 0;
             max-width: 900px;
             margin: 0 auto;
         }
-        
+
         .blog-article-header {
             margin-bottom: 3rem;
         }
-        
+
         .blog-article-back {
             display: flex;
             align-items: center;
@@ -2557,21 +2822,21 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
         }
-        
+
         .blog-article-back:hover {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
         }
-        
+
         .blog-article-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
-        
+
         .blog-article-category {
             display: inline-block;
             padding: 0.5rem 1rem;
@@ -2584,12 +2849,12 @@
             font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
         }
-        
+
         .blog-article-category:hover {
             background: rgba(0, 255, 255, 0.2);
             box-shadow: 0 0 10px var(--accent-color);
         }
-        
+
         .blog-article-title {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
@@ -2599,7 +2864,7 @@
             margin-bottom: 0;
             position: relative;
         }
-        
+
         .blog-article-title::after {
             content: '';
             position: absolute;
@@ -2611,7 +2876,7 @@
             animation: borderExpand 1s ease forwards;
             animation-delay: 0.5s;
         }
-        
+
         .blog-article-image {
             margin-bottom: 3rem;
             border-radius: 24px;
@@ -2620,7 +2885,7 @@
             max-height: 600px;
             position: relative;
         }
-        
+
         .blog-article-image::before {
             content: '';
             position: absolute;
@@ -2628,21 +2893,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(0, 255, 255, 0.2) 0%,
-                transparent 70%
-            );
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(0, 255, 255, 0.2) 0%,
+                    transparent 70%);
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 1;
         }
-        
+
         .blog-article-image:hover::before {
             opacity: 1;
         }
-        
+
         .blog-article-image img {
             width: 100%;
             height: auto;
@@ -2651,26 +2914,26 @@
             min-height: 400px;
             object-fit: cover;
         }
-        
+
         .blog-article-image:hover img {
             transform: scale(1.02);
         }
-        
+
         .blog-article-content {
             margin-bottom: 4rem;
         }
-        
+
         .blog-article-text {
             font-size: 1.1rem;
             line-height: 1.8;
             color: var(--text-secondary);
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .blog-article-text p {
             margin-bottom: 1.5rem;
         }
-        
+
         /* Blog Navigation Styles */
         .blog-navigation {
             display: flex;
@@ -2680,7 +2943,7 @@
             padding: 2rem 0;
             border-top: 1px solid var(--border-subtle);
         }
-        
+
         .blog-nav-btn {
             display: flex;
             align-items: center;
@@ -2696,28 +2959,28 @@
             text-decoration: none;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         .blog-nav-btn:hover {
             background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .blog-nav-btn.disabled {
             opacity: 0.5;
             cursor: not-allowed;
             pointer-events: none;
         }
-        
+
         .blog-nav-btn.disabled:hover {
             transform: none;
             box-shadow: none;
         }
-        
+
         .blog-nav-btn i {
             font-size: 1.1rem;
         }
-        
+
         /* Wellness Particles Background */
         .wellness-particles-container {
             position: fixed;
@@ -2729,14 +2992,14 @@
             z-index: -1;
             overflow: hidden;
         }
-        
+
         .wellness-particle {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             animation: float-particle 15s infinite linear;
         }
-        
+
         /* Wellness Glow Effects */
         .wellness-glow-orb {
             position: absolute;
@@ -2746,7 +3009,7 @@
             animation: wellness-glow-pulse 8s infinite ease-in-out;
             pointer-events: none;
         }
-        
+
         .wellness-glow-orb-1 {
             width: 300px;
             height: 300px;
@@ -2755,7 +3018,7 @@
             left: 10%;
             animation-delay: 0s;
         }
-        
+
         .wellness-glow-orb-2 {
             width: 400px;
             height: 400px;
@@ -2764,7 +3027,7 @@
             right: 15%;
             animation-delay: 2s;
         }
-        
+
         .wellness-glow-orb-3 {
             width: 250px;
             height: 250px;
@@ -2773,7 +3036,7 @@
             left: 30%;
             animation-delay: 4s;
         }
-        
+
         .wellness-glow-orb-4 {
             width: 350px;
             height: 350px;
@@ -2782,7 +3045,7 @@
             left: 60%;
             animation-delay: 6s;
         }
-        
+
         /* Wellness Floating Icons */
         .wellness-floating-icons {
             position: fixed;
@@ -2793,7 +3056,7 @@
             pointer-events: none;
             z-index: 2;
         }
-        
+
         .wellness-floating-icon {
             position: absolute;
             font-size: 1.5rem;
@@ -2801,7 +3064,7 @@
             animation: wellness-float-icon 15s infinite ease-in-out;
             filter: drop-shadow(0 0 5px currentColor);
         }
-        
+
         /* ========================================================================
            ENHANCED ANIMATIONS
            ======================================================================== */
@@ -2810,296 +3073,492 @@
                 transform: scale(0);
                 opacity: 1;
             }
+
             50% {
                 transform: scale(1);
                 opacity: 0.8;
             }
+
             100% {
                 transform: scale(1.2);
                 opacity: 0;
             }
         }
+
         @keyframes shardFly {
             0% {
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 1;
             }
+
             100% {
                 transform: translate(var(--tx), var(--ty)) rotate(var(--rotation));
                 opacity: 0;
             }
         }
+
         @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
         }
+
         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         @keyframes spin-reverse {
-            from { transform: rotate(0deg) scale(0.8); }
-            to { transform: rotate(-360deg) scale(0.8); }
+            from {
+                transform: rotate(0deg) scale(0.8);
+            }
+
+            to {
+                transform: rotate(-360deg) scale(0.8);
+            }
         }
+
         @keyframes pulse-grow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
+
         @keyframes loadingPulse {
-            0%, 100% { transform: scaleY(0.5); }
-            50% { transform: scaleY(1); }
+
+            0%,
+            100% {
+                transform: scaleY(0.5);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
         }
+
         @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes slideInLeft {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateX(-150px) rotateY(15deg);
             }
-            to { 
-                opacity: 1; 
+
+            to {
+                opacity: 1;
                 transform: translateX(0) rotateY(0);
             }
         }
+
         @keyframes slideInRight {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateX(150px) rotateY(-15deg);
             }
-            to { 
-                opacity: 1; 
+
+            to {
+                opacity: 1;
                 transform: translateX(0) rotateY(0);
             }
         }
+
         @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         @keyframes rotateIn {
-            from { opacity: 0; transform: scale(0.8) rotateY(90deg); }
-            to { opacity: 1; transform: scale(1) rotateY(0); }
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotateY(90deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0);
+            }
         }
+
         @keyframes flipIn {
-            from { opacity: 0; transform: translateY(40px) rotateX(90deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px) rotateX(90deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
         }
+
         @keyframes bounceIn {
             0% {
                 opacity: 0;
                 transform: translateY(40px) scale(0.95);
             }
+
             50% {
                 transform: translateY(-10px) scale(1.05);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
+
         @keyframes coreFeatureReveal {
             0% {
                 opacity: 0;
                 transform: translateY(60px) scale(0.9);
                 filter: blur(10px);
             }
+
             50% {
                 transform: translateY(-15px) scale(1.03);
                 filter: blur(2px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
                 filter: blur(0);
             }
         }
+
         @keyframes scrollLine {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(30px); opacity: 0; }
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
         }
+
         @keyframes wordReveal {
             to {
                 opacity: 1;
                 transform: translateY(0) rotateX(0);
             }
         }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
         }
+
         @keyframes borderExpand {
-            to { width: 100%; }
+            to {
+                width: 100%;
+            }
         }
+
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-15px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-15px);
+            }
         }
+
         @keyframes smash {
             0% {
                 transform: translate(0, 0) scale(1) rotate(0deg);
                 opacity: 1;
             }
+
             100% {
                 transform: translate(var(--tx), var(--ty)) scale(0) rotate(720deg);
                 opacity: 0;
             }
         }
+
         @keyframes dumbbell-lift {
-            0%, 100% { transform: translateY(20px) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(-15deg); }
-            50% { transform: translateY(20px) rotate(0deg); }
-            75% { transform: translateY(-20px) rotate(15deg); }
+
+            0%,
+            100% {
+                transform: translateY(20px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-20px) rotate(-15deg);
+            }
+
+            50% {
+                transform: translateY(20px) rotate(0deg);
+            }
+
+            75% {
+                transform: translateY(-20px) rotate(15deg);
+            }
         }
+
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
+
         @keyframes sectionHeaderReveal {
             from {
                 opacity: 0;
                 transform: translateY(50px) scale(0.9);
                 filter: blur(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
                 filter: blur(0);
             }
         }
+
         @keyframes badgeFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
+
         @keyframes float-particle {
             0% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
+
             10% {
                 opacity: 0.4;
             }
+
             90% {
                 opacity: 0.4;
             }
+
             100% {
                 transform: translateY(-100vh) translateX(100px);
                 opacity: 0;
             }
         }
+
         @keyframes float-icon {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(0deg);
                 opacity: 0.3;
             }
+
             50% {
                 transform: translateY(-20px) rotate(10deg);
                 opacity: 0.4;
             }
         }
+
         @keyframes programCardIntro {
             0% {
                 opacity: 0;
                 transform: translateY(80px) rotateY(15deg) scale(0.9);
                 filter: blur(5px);
             }
+
             50% {
                 transform: translateY(-20px) rotateY(-5deg) scale(1.05);
                 filter: blur(2px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) rotateY(0) scale(1);
                 filter: blur(0);
             }
         }
+
         @keyframes programCardOutro {
             0% {
                 opacity: 1;
                 transform: translateY(0) rotateY(0) scale(1);
                 filter: blur(0);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-80px) rotateY(-15deg) scale(0.9);
                 filter: blur(5px);
             }
         }
+
         @keyframes coreFeatureIntro {
             0% {
                 opacity: 0;
                 transform: translateY(80px) rotateX(15deg) scale(0.9);
                 filter: blur(5px);
             }
+
             50% {
                 transform: translateY(-20px) rotateX(-5deg) scale(1.05);
                 filter: blur(2px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) rotateX(0) scale(1);
                 filter: blur(0);
             }
         }
+
         @keyframes coreFeatureOutro {
             0% {
                 opacity: 1;
                 transform: translateY(0) rotateX(0) scale(1);
                 filter: blur(0);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-80px) rotateX(-15deg) scale(0.9);
                 filter: blur(5px);
             }
         }
-        
+
         /* Wellness Animations */
         @keyframes wellness-glow-pulse {
-            0%, 100% { 
+
+            0%,
+            100% {
                 opacity: 0.15;
-                transform: scale(1); 
+                transform: scale(1);
             }
-            50% { 
+
+            50% {
                 opacity: 0.3;
-                transform: scale(1.1); 
+                transform: scale(1.1);
             }
         }
-        
+
         @keyframes wellness-float-icon {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(0deg) scale(1);
                 opacity: 0.15;
             }
+
             25% {
                 transform: translateY(-20px) rotate(5deg) scale(1.1);
                 opacity: 0.25;
             }
+
             50% {
                 transform: translateY(-10px) rotate(-5deg) scale(0.9);
                 opacity: 0.2;
             }
+
             75% {
                 transform: translateY(-30px) rotate(10deg) scale(1.05);
                 opacity: 0.3;
             }
         }
-        
+
         /* ========================================================================
            RESPONSIVE DESIGN
            ======================================================================== */
@@ -3108,22 +3567,27 @@
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
                 gap: 2rem;
             }
+
             .footer-main {
                 grid-template-columns: 1fr;
                 gap: 3rem;
                 text-align: center;
             }
+
             .footer-links {
                 grid-template-columns: repeat(3, 1fr);
             }
+
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
+
             .about-image {
                 height: 400px;
             }
         }
+
         @media (max-width: 968px) {
             .nav {
                 position: fixed;
@@ -3139,241 +3603,269 @@
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
             }
+
             .nav.nav-open {
                 transform: translateX(0);
             }
+
             .mobile-menu-toggle {
                 display: block;
             }
+
             .hero-buttons {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .hero-features {
                 flex-direction: column;
             }
+
             .programs-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
             .diet-grid {
                 grid-template-columns: 1fr;
             }
+
             .sport-card {
                 flex-direction: column;
                 height: auto;
             }
+
             .sport-image {
                 flex: 0 0 auto;
                 height: 250px;
             }
+
             .sport-content {
                 flex: 0 0 auto;
                 padding: 2rem;
             }
+
             .footer-links {
                 grid-template-columns: repeat(2, 1fr);
             }
+
             .about-features {
                 grid-template-columns: 1fr;
             }
-            
+
             /* Health Blogs Responsive */
             .health-blogs-container {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-            
+
             .health-blogs-nav {
                 order: 2;
                 width: 100%;
                 justify-content: space-between;
             }
-            
+
             .health-blogs-back {
                 order: 1;
                 align-self: flex-start;
             }
-            
+
             .health-awareness-slide {
                 height: 400px;
             }
-            
+
             .health-awareness-overlay {
                 padding: 2rem;
             }
-            
+
             .health-awareness-text {
                 font-size: 1.4rem;
             }
-            
+
             .health-awareness-arrow {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
             }
-            
+
             .health-awareness-prev {
                 left: 1rem;
             }
-            
+
             .health-awareness-next {
                 right: 1rem;
             }
-            
+
             .blog-navigation {
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .blog-nav-btn {
                 width: 100%;
                 justify-content: center;
             }
         }
+
         @media (max-width: 768px) {
             .nav-item {
                 font-size: 0.8rem;
                 padding: 0.4rem 0.8rem;
             }
+
             .profile-btn {
                 font-size: 0.8rem;
                 padding: 0.4rem 0.8rem;
             }
+
             .profile-btn span {
                 max-width: 60px;
             }
         }
+
         @media (max-width: 640px) {
             .container {
                 padding: 0 1rem;
             }
+
             .hero-text {
                 text-align: center;
             }
+
             .hero-title {
                 font-size: clamp(2.5rem, 10vw, 4rem);
             }
+
             .hero-description {
                 font-size: 1.125rem;
             }
+
             .hero-buttons {
                 align-items: center;
             }
+
             .programs-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
             .program-card {
                 margin: 0 -1rem;
                 border-radius: 16px;
             }
+
             .diet-grid {
                 grid-template-columns: 1fr;
             }
+
             .sport-features {
                 grid-template-columns: 1fr;
             }
+
             .sport-title {
                 font-size: 2rem;
             }
+
             .sport-description {
                 font-size: 1rem;
             }
+
             .footer-links {
                 grid-template-columns: 1fr;
                 text-align: left;
             }
+
             .footer-bottom-content {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
             }
+
             .footer-bottom-links {
                 justify-content: center;
             }
-            
+
             /* Health Blogs Mobile */
             .health-blogs-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
+
             .health-awareness-slide {
                 height: 300px;
             }
-            
+
             .health-awareness-text {
                 font-size: 1.2rem;
             }
-            
+
             .popular-posts-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .blog-article-title {
                 font-size: 2rem;
             }
-            
+
             .blog-article-image {
                 max-height: 400px;
             }
-            
+
             .blog-article-image img {
                 min-height: 300px;
             }
         }
-        
+
         /* Fix for returning from wellness page - skip animations */
         .hero.returning .hero-word {
             animation: none !important;
             opacity: 1 !important;
             transform: translateY(0) rotateX(0) !important;
         }
-        
+
         .hero.returning .hero-badge {
             animation: none !important;
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        
+
         .hero.returning .hero-description {
             animation: none !important;
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        
+
         .hero.returning .hero-buttons {
             animation: none !important;
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        
+
         .hero.returning .hero-feature {
             animation: none !important;
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
-        
+
         .hero.returning .scroll-indicator {
             animation: none !important;
             opacity: 1 !important;
             transform: translateX(-50%) translateY(0) !important;
         }
-        
+
         .header.returning {
             animation: none !important;
             transform: translateY(0) !important;
             opacity: 1 !important;
         }
-        
+
         /* Video preload optimization */
         .hero-video {
             will-change: transform;
             backface-visibility: hidden;
             transform: translateZ(0);
         }
-        
+
         /* Enhanced page transition for returning from wellness */
         .page-transition-overlay {
             position: fixed;
@@ -3390,16 +3882,16 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        
+
         .page-transition-overlay.active {
             opacity: 1;
             pointer-events: all;
         }
-        
+
         .page-transition-content {
             text-align: center;
         }
-        
+
         .page-transition-title {
             font-size: 2rem;
             font-weight: 800;
@@ -3409,7 +3901,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .page-transition-spinner {
             width: 50px;
             height: 50px;
@@ -3422,11 +3914,12 @@
     </style>
     <script src="/static/sync.js"></script>
 </head>
+
 <body>
     <div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useRef, useCallback } = React;
-        
+
         // Enhanced Custom Cursor and Smash Effect Component
         const CustomCursor = ({ onSmash }) => {
             const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -3454,7 +3947,7 @@
                 </div>
             );
         };
-        
+
         // Enhanced Breaking Effect Container - More Dramatic
         const SmashEffectContainer = ({ smashEvents }) => {
             const [particles, setParticles] = useState([]);
@@ -3471,14 +3964,14 @@
             useEffect(() => {
                 if (smashEvents.length === 0) return;
                 const { x, y } = smashEvents[smashEvents.length - 1];
-                
+
                 // Play sound
                 if (breakSound.current) {
                     breakSound.current.volume = 0.5;
                     breakSound.current.currentTime = 0;
                     breakSound.current.play().catch(err => console.error("Audio play failed:", err));
                 }
-                
+
                 // Create glass breaking effect
                 const newGlassBreak = {
                     id: `gb-${Date.now()}`,
@@ -3486,7 +3979,7 @@
                     y: y - 75
                 };
                 setGlassBreaks(prev => [...prev, newGlassBreak]);
-                
+
                 // Create more glass shards for dramatic effect
                 const newShards = Array.from({ length: 25 }).map((_, i) => ({
                     id: `s-${Date.now()}-${i}`,
@@ -3500,7 +3993,7 @@
                     duration: Math.random() * 0.8 + 0.8
                 }));
                 setGlassBreaks(prev => [...prev, ...newShards]);
-                
+
                 // Create more particles for dramatic effect
                 const newParticles = Array.from({ length: 25 }).map((_, i) => ({
                     id: `p-${Date.now()}-${i}`, x, y,
@@ -3510,7 +4003,7 @@
                     duration: Math.random() * 0.8 + 0.8
                 }));
                 setParticles(prev => [...prev, ...newParticles]);
-                
+
                 // Cleanup timers
                 setTimeout(() => {
                     setGlassBreaks([]);
@@ -3553,27 +4046,27 @@
             );
         };
         <div class="page-transition-overlay" id="pageOverlay"></div>
-        
+
         // Floating Particles Background Component
         const ParticlesBackground = () => {
             const containerRef = useRef(null);
             useEffect(() => {
                 const container = containerRef.current;
                 if (!container) return;
-                
+
                 const createParticle = () => {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
-                    
+
                     // Random size between 2px and 8px
                     const size = Math.random() * 6 + 2;
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
-                    
+
                     // Random starting position
                     particle.style.left = `${Math.random() * 100}%`;
                     particle.style.top = `${Math.random() * 100}%`;
-                    
+
                     // Random color with cyan/pink theme
                     const colors = [
                         'rgba(0, 255, 255, 0.5)',
@@ -3581,48 +4074,48 @@
                         'rgba(255, 107, 53, 0.5)'
                     ];
                     particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    
+
                     // Random animation duration between 10s and 20s
                     const duration = Math.random() * 10 + 10;
                     particle.style.animationDuration = `${duration}s`;
-                    
+
                     // Random delay
                     particle.style.animationDelay = `${Math.random() * 5}s`;
-                    
+
                     container.appendChild(particle);
-                    
+
                     // Remove particle after animation completes
                     setTimeout(() => {
                         particle.remove();
                     }, duration * 1000);
                 };
-                
+
                 // Create initial particles
                 for (let i = 0; i < 30; i++) {
                     setTimeout(createParticle, i * 100);
                 }
-                
+
                 // Continuously create new particles
                 const interval = setInterval(createParticle, 300);
-                
+
                 return () => {
                     clearInterval(interval);
                 };
             }, []);
-            
+
             return <div className="particles-container" ref={containerRef}></div>;
         };
-        
+
         // Wellness Particles Background Component
         const WellnessParticlesBackground = () => {
             const containerRef = useRef(null);
             const glowOrbsRef = useRef([]);
             const floatingIconsRef = useRef([]);
-            
+
             useEffect(() => {
                 const container = containerRef.current;
                 if (!container) return;
-                
+
                 // Create wellness glow orbs
                 const createGlowOrb = (className, delay) => {
                     const orb = document.createElement('div');
@@ -3631,19 +4124,19 @@
                     container.appendChild(orb);
                     glowOrbsRef.current.push(orb);
                 };
-                
+
                 createGlowOrb('wellness-glow-orb-1', 0);
                 createGlowOrb('wellness-glow-orb-2', 2);
                 createGlowOrb('wellness-glow-orb-3', 4);
                 createGlowOrb('wellness-glow-orb-4', 6);
-                
+
                 // Create wellness floating icons
                 const wellnessIcons = [
                     'fas fa-heartbeat', 'fas fa-brain', 'fas fa-lungs', 'fas fa-dumbbell',
                     'fas fa-apple-alt', 'fas fa-running', 'fas fa-meditation', 'fas fa-bed',
                     'fas fa-spa', 'fas fa-leaf', 'fas fa-water', 'fas fa-sun'
                 ];
-                
+
                 const createFloatingIcon = (icon, top, left, delay, duration, color) => {
                     const iconElement = document.createElement('i');
                     iconElement.className = `${icon} wellness-floating-icon`;
@@ -3655,30 +4148,30 @@
                     container.appendChild(iconElement);
                     floatingIconsRef.current.push(iconElement);
                 };
-                
+
                 // Create multiple floating icons with different positions and colors
                 const colors = ['var(--accent-color)', 'var(--accent-pink)', 'var(--accent-orange)', '#06FFA5'];
-                
+
                 wellnessIcons.forEach((icon, index) => {
                     const top = Math.random() * 80 + 10;
                     const left = Math.random() * 80 + 10;
                     const delay = Math.random() * 10;
                     const duration = Math.random() * 10 + 10;
                     const color = colors[Math.floor(Math.random() * colors.length)];
-                    
+
                     createFloatingIcon(icon, top, left, delay, duration, color);
                 });
-                
+
                 // Create enhanced wellness particles
                 const createWellnessParticle = () => {
                     const particle = document.createElement('div');
                     particle.className = 'wellness-particle';
-                    
+
                     // Enhanced particle creation with more variety
                     const size = Math.random() * 12 + 3;
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
-                    
+
                     // Add more color options with gradients
                     const colors = [
                         'linear-gradient(45deg, rgba(0, 255, 255, 0.8), rgba(0, 212, 255, 0.4))',
@@ -3687,66 +4180,66 @@
                         'linear-gradient(45deg, rgba(6, 255, 165, 0.8), rgba(0, 180, 216, 0.4))'
                     ];
                     particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    
+
                     // Random starting position
                     particle.style.left = `${Math.random() * 100}%`;
                     particle.style.top = `${Math.random() * 100}%`;
-                    
+
                     // Enhanced animation with more variety
                     const duration = Math.random() * 20 + 10;
                     particle.style.animationDuration = `${duration}s`;
-                    
+
                     // Random delay
                     particle.style.animationDelay = `${Math.random() * 5}s`;
-                    
+
                     // Add box-shadow for more glow effect
                     const glowColor = colors[Math.floor(Math.random() * colors.length)];
                     particle.style.boxShadow = `0 0 ${size}px ${glowColor}`;
-                    
+
                     container.appendChild(particle);
-                    
+
                     setTimeout(() => {
                         particle.remove();
                     }, duration * 1000);
                 };
-                
+
                 // Create more particles initially
                 for (let i = 0; i < 80; i++) {
                     setTimeout(createWellnessParticle, i * 30);
                 }
-                
+
                 // Create particles more frequently
                 const interval = setInterval(createWellnessParticle, 150);
-                
+
                 return () => {
                     clearInterval(interval);
                     glowOrbsRef.current.forEach(orb => orb.remove());
                     floatingIconsRef.current.forEach(icon => icon.remove());
                 };
             }, []);
-            
+
             return <div className="wellness-particles-container" ref={containerRef}></div>;
         };
-        
+
         // Loading Screen Component - From First Code
         const LoadingScreen = ({ showOnLoad }) => {
             const [isLoading, setIsLoading] = useState(true);
-            
+
             useEffect(() => {
                 if (!showOnLoad) {
                     setIsLoading(false);
                     return;
                 }
-                
+
                 const timer = setTimeout(() => {
                     setIsLoading(false);
                 }, 3500);
-                
+
                 return () => clearTimeout(timer);
             }, [showOnLoad]);
-            
+
             if (!isLoading) return null;
-            
+
             return (
                 <div className="loading-screen">
                     <div className="loading-container">
@@ -3770,28 +4263,28 @@
                 </div>
             );
         };
-        
+
         // Header Component with Profile Dropdown
         const Header = ({ onNavigateToWellness, isReturningFromWellness }) => {
             const [isScrolled, setIsScrolled] = useState(false);
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
             const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
             const [userName, setUserName] = useState("Athlete");
-            
+
             useEffect(() => {
                 // Get user name from localStorage
                 const storedName = localStorage.getItem('userName');
                 if (storedName) {
                     setUserName(storedName);
                 }
-                
+
                 const handleScroll = () => {
                     setIsScrolled(window.scrollY > 50);
                 };
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
-            
+
             const scrollToSection = (e, id) => {
                 e.preventDefault();
                 const element = document.getElementById(id);
@@ -3800,18 +4293,18 @@
                 }
                 setIsMobileMenuOpen(false);
             };
-            
+
             const toggleProfileDropdown = () => {
                 setIsProfileDropdownOpen(!isProfileDropdownOpen);
             };
-            
+
             const handleLogout = () => {
                 // Clear user data from localStorage
                 localStorage.removeItem('userName');
                 // Redirect to index.html
                 window.location.href = 'index.html';
             };
-            
+
             // Close dropdown when clicking outside
             useEffect(() => {
                 const handleClickOutside = (e) => {
@@ -3819,13 +4312,13 @@
                         setIsProfileDropdownOpen(false);
                     }
                 };
-                
+
                 document.addEventListener('mousedown', handleClickOutside);
                 return () => {
                     document.removeEventListener('mousedown', handleClickOutside);
                 };
             }, [isProfileDropdownOpen]);
-            
+
             return (
                 <header className={`header ${isScrolled ? 'scrolled' : ''} ${isReturningFromWellness ? 'returning' : ''}`}>
                     <div className="container">
@@ -3891,7 +4384,7 @@
                 </header>
             );
         };
-        
+
         // Hero Section Component - With Video from First Code
         const Hero = ({ isReturningFromWellness }) => {
             const [scrollY, setScrollY] = useState(0);
@@ -3905,7 +4398,7 @@
                     element.scrollIntoView({ behavior: 'smooth' });
                 }
             };
-            
+
             // UPDATED: Simplified useEffect to only handle the initial load
             useEffect(() => {
                 // This effect now only handles the initial load logic.
@@ -3926,7 +4419,7 @@
                     };
                 }
             }, [isReturningFromWellness]); // The effect runs only when this prop changes.
-            
+
             useEffect(() => {
                 const handleScroll = () => {
                     setScrollY(window.scrollY);
@@ -3934,21 +4427,21 @@
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
-            
+
             return (
                 <section id="home" className={`hero ${isReturningFromWellness ? 'returning' : ''}`}>
                     <div className="hero-video-container">
-                        <video 
+                        <video
                             ref={videoRef}
-                            className="hero-video" 
-                            autoPlay 
-                            muted 
-                            loop 
+                            className="hero-video"
+                            autoPlay
+                            muted
+                            loop
                             playsInline
                             preload="auto"
                             style={{ opacity: videoReady ? 1 : 0, transition: 'opacity 0.3s' }}
                         >
-                            <source src="video.mp4.mp4" type="video/mp4" />
+                            <source src="video.mp4.webm" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                         <div className="hero-video-overlay"></div>
@@ -4010,11 +4503,11 @@
                 </section>
             );
         };
-        
+
         // Welcome Banner Component - Removed Workout Stats
         const WelcomeBanner = () => {
             const [userName, setUserName] = useState("Athlete");
-            
+
             useEffect(() => {
                 // Get user name from localStorage
                 const storedName = localStorage.getItem('userName');
@@ -4022,7 +4515,7 @@
                     setUserName(storedName);
                 }
             }, []);
-            
+
             return (
                 <section className="welcome-banner">
                     <div className="welcome-content">
@@ -4036,7 +4529,7 @@
                 </section>
             );
         };
-        
+
         // Typing Text Component
         const TypingText = ({ texts, speed = 100 }) => {
             const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -4065,7 +4558,7 @@
                 </div>
             );
         };
-        
+
         // Programs Section Component
         const Programs = ({ isReturningFromWellness }) => {
             const [isVisible, setIsVisible] = useState(isReturningFromWellness);
@@ -4073,7 +4566,7 @@
             const sectionRef = useRef(null);
             const cardsRef = useRef([]);
             const animatedCards = useRef(new Set()); // Track which cards have been animated
-            
+
             useEffect(() => {
                 if (isReturningFromWellness) {
                     setIsVisible(true);
@@ -4089,7 +4582,7 @@
                     });
                     return;
                 }
-                
+
                 const observer = new IntersectionObserver(
                     ([entry]) => {
                         if (entry.isIntersecting) {
@@ -4109,11 +4602,11 @@
                     }
                 };
             }, [isReturningFromWellness]);
-            
+
             // Observe each card for scroll animations
             useEffect(() => {
                 if (!isVisible || isReturningFromWellness) return;
-                
+
                 const cardObserver = new IntersectionObserver(
                     (entries) => {
                         entries.forEach((entry) => {
@@ -4121,7 +4614,7 @@
                             if (cardIndex !== -1 && entry.isIntersecting && !animatedCards.current.has(cardIndex)) {
                                 // Mark this card as animated
                                 animatedCards.current.add(cardIndex);
-                                
+
                                 // Add staggered delay for each card
                                 setTimeout(() => {
                                     entry.target.classList.add('animate-in');
@@ -4132,18 +4625,18 @@
                     },
                     { threshold: 0.15 } // Slightly higher threshold for better effect
                 );
-                
+
                 cardsRef.current.forEach(card => {
                     if (card) cardObserver.observe(card);
                 });
-                
+
                 return () => {
                     cardsRef.current.forEach(card => {
                         if (card) cardObserver.unobserve(card);
                     });
                 };
             }, [isVisible, isReturningFromWellness]);
-            
+
             const programs = [
                 {
                     id: 1,
@@ -4210,18 +4703,18 @@
                 'var(--accent-color)', 'var(--accent-orange)', 'var(--accent-pink)',
                 '#00B4D8', '#F72585', '#06FFA5'
             ];
-            
+
             const handleCardClick = (programId, programTitle, page) => {
                 // Store the selected program in localStorage for the next page
                 localStorage.setItem('selectedProgram', JSON.stringify({
                     id: programId,
                     title: programTitle
                 }));
-                
+
                 // Redirect to the program's page
                 window.location.href = page;
             };
-            
+
             const handleMouseMove = (e, index) => {
                 const card = cardsRef.current[index];
                 if (!card) return;
@@ -4231,7 +4724,7 @@
                 card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
                 card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
             };
-            
+
             return (
                 <section id="programs" className="programs-section" ref={sectionRef}>
                     <div className="container">
@@ -4303,14 +4796,14 @@
                 </section>
             );
         };
-        
+
         // Core Features Section - Enhanced Version
         const CoreFeatures = ({ isReturningFromWellness }) => {
             const [isVisible, setIsVisible] = useState(isReturningFromWellness);
             const sectionRef = useRef(null);
             const cardsRef = useRef([]);
             const animatedCards = useRef(new Set()); // Track which cards have been animated
-            
+
             useEffect(() => {
                 if (isReturningFromWellness) {
                     setIsVisible(true);
@@ -4325,7 +4818,7 @@
                     });
                     return;
                 }
-                
+
                 const observer = new IntersectionObserver(
                     ([entry]) => {
                         if (entry.isIntersecting) {
@@ -4344,11 +4837,11 @@
                     }
                 };
             }, [isReturningFromWellness]);
-            
+
             // Observe each card for scroll animations
             useEffect(() => {
                 if (!isVisible || isReturningFromWellness) return;
-                
+
                 const cardObserver = new IntersectionObserver(
                     (entries) => {
                         entries.forEach((entry) => {
@@ -4356,7 +4849,7 @@
                             if (cardIndex !== -1 && entry.isIntersecting && !animatedCards.current.has(cardIndex)) {
                                 // Mark this card as animated
                                 animatedCards.current.add(cardIndex);
-                                
+
                                 // Add staggered delay for each card
                                 setTimeout(() => {
                                     entry.target.classList.add('animate-in');
@@ -4367,18 +4860,18 @@
                     },
                     { threshold: 0.15 } // Slightly higher threshold for better effect
                 );
-                
+
                 cardsRef.current.forEach(card => {
                     if (card) cardObserver.observe(card);
                 });
-                
+
                 return () => {
                     cardsRef.current.forEach(card => {
                         if (card) cardObserver.unobserve(card);
                     });
                 };
             }, [isVisible, isReturningFromWellness]);
-            
+
             const coreFeatures = [
                 {
                     title: "Personal Stat Log",
@@ -4423,7 +4916,7 @@
                     page: "aura.html"
                 }
             ];
-            
+
             const handleMouseMove = (e, index) => {
                 const card = cardsRef.current[index];
                 if (!card) return;
@@ -4433,12 +4926,12 @@
                 card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
                 card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
             };
-            
+
             const handleCardClick = (feature) => {
                 // Redirect to the feature's page
                 window.location.href = feature.page;
             };
-            
+
             return (
                 <section id="core-features" className="core-features-section" ref={sectionRef}>
                     <div className="container">
@@ -4480,15 +4973,15 @@
                 </section>
             );
         };
-        
+
         // Sports Section Component
-       // Sports Section Component
-const Sports = ({ isReturningFromWellness }) => {
-    const sectionRef = useRef(null);
-    const cardsRef = useRef([]);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isVisible, setIsVisible] = useState(isReturningFromWellness);
-            
+        // Sports Section Component
+        const Sports = ({ isReturningFromWellness }) => {
+            const sectionRef = useRef(null);
+            const cardsRef = useRef([]);
+            const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+            const [isVisible, setIsVisible] = useState(isReturningFromWellness);
+
             const sports = [
                 {
                     title: "Basketball",
@@ -4533,98 +5026,98 @@ const Sports = ({ isReturningFromWellness }) => {
                     features: ["Sprint Technique", "Jumping Form", "Throwing Power", "Race Strategy"]
                 }
             ];
-            
-            // Handle mouse movement for glow effect
-           useEffect(() => {
-        if (isReturningFromWellness) {
-            setIsVisible(true);
-            return;
-        }
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
+            // Handle mouse movement for glow effect
+            useEffect(() => {
+                if (isReturningFromWellness) {
                     setIsVisible(true);
-                    observer.disconnect();
+                    return;
                 }
-            },
-            { threshold: 0.1 }
-        );
-        
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-        
-        return () => {
-            if (sectionRef.current) {
-                observer.unobserve(sectionRef.current);
-            }
-        };
-    }, [isReturningFromWellness]);
+
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                            observer.disconnect();
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+
+                if (sectionRef.current) {
+                    observer.observe(sectionRef.current);
+                }
+
+                return () => {
+                    if (sectionRef.current) {
+                        observer.unobserve(sectionRef.current);
+                    }
+                };
+            }, [isReturningFromWellness]);
 
             // Update glow position on mouse move
             const handleMouseMove = (e, index) => {
                 const card = cardsRef.current[index];
                 if (!card) return;
-                
+
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
                 card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
             };
-            
+
             useEffect(() => {
-        if (isReturningFromWellness) {
-            // Immediately animate all cards
-            cardsRef.current.forEach((card, index) => {
-                if (card) {
-                    if (index % 2 === 0) {
-                        card.classList.add('animate-in-left');
-                    } else {
-                        card.classList.add('animate-in-right');
-                    }
-                }
-            });
-            return;
-        }
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const cardIndex = cardsRef.current.indexOf(entry.target);
-                    if (cardIndex !== -1) {
-                        if (entry.isIntersecting) {
-                            // Alternate animation direction based on index
-                            if (cardIndex % 2 === 0) {
-                                entry.target.classList.add('animate-in-left');
+                if (isReturningFromWellness) {
+                    // Immediately animate all cards
+                    cardsRef.current.forEach((card, index) => {
+                        if (card) {
+                            if (index % 2 === 0) {
+                                card.classList.add('animate-in-left');
                             } else {
-                                entry.target.classList.add('animate-in-right');
+                                card.classList.add('animate-in-right');
                             }
-                        } else {
-                            entry.target.classList.remove('animate-in-left', 'animate-in-right');
-                            entry.target.classList.add('animate-out');
                         }
-                    }
+                    });
+                    return;
+                }
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            const cardIndex = cardsRef.current.indexOf(entry.target);
+                            if (cardIndex !== -1) {
+                                if (entry.isIntersecting) {
+                                    // Alternate animation direction based on index
+                                    if (cardIndex % 2 === 0) {
+                                        entry.target.classList.add('animate-in-left');
+                                    } else {
+                                        entry.target.classList.add('animate-in-right');
+                                    }
+                                } else {
+                                    entry.target.classList.remove('animate-in-left', 'animate-in-right');
+                                    entry.target.classList.add('animate-out');
+                                }
+                            }
+                        });
+                    },
+                    { threshold: 0.2 }
+                );
+
+                cardsRef.current.forEach(card => {
+                    if (card) observer.observe(card);
                 });
-            },
-            { threshold: 0.2 }
-        );
 
-        cardsRef.current.forEach(card => {
-            if (card) observer.observe(card);
-        });
-
-        return () => {
-            cardsRef.current.forEach(card => {
-                if (card) observer.unobserve(card);
-            });
-        };
-    }, [isVisible, isReturningFromWellness]);
+                return () => {
+                    cardsRef.current.forEach(card => {
+                        if (card) observer.unobserve(card);
+                    });
+                };
+            }, [isVisible, isReturningFromWellness]);
 
 
-            
+
             return (
                 <section id="sports" className="sports-section" ref={sectionRef}>
                     <div className="container">
@@ -4672,14 +5165,14 @@ const Sports = ({ isReturningFromWellness }) => {
                 </section>
             );
         };
-        
+
         // Diet Plans Section Component - Enhanced Dynamic Effects - RESTORED ALL CARDS
         const DietPlans = ({ isReturningFromWellness }) => {
             const [isVisible, setIsVisible] = useState(isReturningFromWellness);
             const sectionRef = useRef(null);
             const cardsRef = useRef([]);
             const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-            
+
             useEffect(() => {
                 if (isReturningFromWellness) {
                     setIsVisible(true);
@@ -4693,7 +5186,7 @@ const Sports = ({ isReturningFromWellness }) => {
                     });
                     return;
                 }
-                
+
                 const observer = new IntersectionObserver(
                     ([entry]) => {
                         if (entry.isIntersecting) {
@@ -4712,17 +5205,17 @@ const Sports = ({ isReturningFromWellness }) => {
                     }
                 };
             }, [isReturningFromWellness]);
-            
+
             // Handle mouse movement for dynamic background effect
             useEffect(() => {
                 const handleMouseMove = (e) => {
                     setMousePosition({ x: e.clientX, y: e.clientY });
                 };
-                
+
                 window.addEventListener('mousemove', handleMouseMove);
                 return () => window.removeEventListener('mousemove', handleMouseMove);
             }, []);
-            
+
             // Update glow position on mouse move
             const handleMouseMove = (e, index) => {
                 const card = cardsRef.current[index];
@@ -4733,7 +5226,7 @@ const Sports = ({ isReturningFromWellness }) => {
                 card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
                 card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
             };
-            
+
             // RESTORED ALL DIET PLAN CARDS
             const dietPlans = [
                 {
@@ -4779,11 +5272,11 @@ const Sports = ({ isReturningFromWellness }) => {
                     features: ["Multiple fasting protocols", "Training adaptation", "Hormonal optimization", "Progressive implementation"]
                 }
             ];
-            
+
             return (
                 <section id="diet" className="diet-section" ref={sectionRef}>
                     {/* Dynamic background effect that follows mouse */}
-                    <div 
+                    <div
                         className="dynamic-background"
                         style={{
                             position: 'absolute',
@@ -4796,7 +5289,7 @@ const Sports = ({ isReturningFromWellness }) => {
                             pointerEvents: 'none'
                         }}
                     />
-                    
+
                     <div className="container">
                         <div className={`section-header ${isVisible ? 'animate-in' : ''}`}>
                             <div className="section-badge">
@@ -4842,7 +5335,7 @@ const Sports = ({ isReturningFromWellness }) => {
                 </section>
             );
         };
-        
+
         // About Section Component
         const About = ({ isReturningFromWellness }) => {
             const [isVisible, setIsVisible] = useState(isReturningFromWellness);
@@ -4852,7 +5345,7 @@ const Sports = ({ isReturningFromWellness }) => {
                     setIsVisible(true);
                     return;
                 }
-                
+
                 const observer = new IntersectionObserver(
                     ([entry]) => {
                         if (entry.isIntersecting) {
@@ -4915,7 +5408,7 @@ const Sports = ({ isReturningFromWellness }) => {
                 </section>
             );
         };
-        
+
         // Footer Component
         const Footer = () => {
             const scrollToSection = (e, id) => {
@@ -4986,11 +5479,11 @@ const Sports = ({ isReturningFromWellness }) => {
                 </footer>
             );
         };
-        
+
         // Blog Article Page Component
         const BlogArticlePage = ({ blog, onBack, onNext, onPrev, hasNext, hasPrev }) => {
             if (!blog) return null;
-            
+
             return (
                 <div className="blog-article-page">
                     <div className="container">
@@ -4999,18 +5492,18 @@ const Sports = ({ isReturningFromWellness }) => {
                                 <i className="fas fa-arrow-left"></i>
                                 <span>Back to Articles</span>
                             </a>
-                            
+
                             <div className="blog-article-meta">
                                 <span className="blog-article-category">{blog.category}</span>
                             </div>
-                            
+
                             <h1 className="blog-article-title">{blog.title}</h1>
                         </div>
-                        
+
                         <div className="blog-article-image">
                             <img src={blog.image} alt={blog.title} />
                         </div>
-                        
+
                         <div className="blog-article-content">
                             <div className="blog-article-text">
                                 {blog.content.split('\n').map((paragraph, index) => (
@@ -5018,10 +5511,10 @@ const Sports = ({ isReturningFromWellness }) => {
                                 ))}
                             </div>
                         </div>
-                        
+
                         {/* Blog Navigation */}
                         <div className="blog-navigation">
-                            <button 
+                            <button
                                 className={`blog-nav-btn ${!hasPrev ? 'disabled' : ''}`}
                                 onClick={onPrev}
                                 disabled={!hasPrev}
@@ -5029,8 +5522,8 @@ const Sports = ({ isReturningFromWellness }) => {
                                 <i className="fas fa-arrow-left"></i>
                                 <span>Previous Article</span>
                             </button>
-                            
-                            <button 
+
+                            <button
                                 className={`blog-nav-btn ${!hasNext ? 'disabled' : ''}`}
                                 onClick={onNext}
                                 disabled={!hasNext}
@@ -5043,14 +5536,14 @@ const Sports = ({ isReturningFromWellness }) => {
                 </div>
             );
         };
-        
+
         // Health and Hygiene Blogs Page Component - Enhanced
         const HealthBlogsPage = ({ isActive, onClose }) => {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [isVisible, setIsVisible] = useState(false);
             const [currentBlog, setCurrentBlog] = useState(null);
             const [currentBlogIndex, setCurrentBlogIndex] = useState(0);
-            
+
             const healthSlides = [
                 {
                     image: "c1.jpeg.jpg",
@@ -5083,7 +5576,7 @@ const Sports = ({ isReturningFromWellness }) => {
                     subtitle: "Stress less, live more"
                 }
             ];
-            
+
             const blogs = [
                 {
                     id: 1,
@@ -5134,7 +5627,7 @@ const Sports = ({ isReturningFromWellness }) => {
                     image: "6.jpeg.jpg"
                 }
             ];
-            
+
             const popularPosts = [
                 {
                     id: 7,
@@ -5185,64 +5678,64 @@ const Sports = ({ isReturningFromWellness }) => {
                     image: "12.jpeg.jpg"
                 }
             ];
-            
+
             // Combine all blogs for navigation
             const allBlogs = [...blogs];
-            
+
             useEffect(() => {
                 if (!isActive) return;
-                
+
                 setIsVisible(true);
-                
+
                 const interval = setInterval(() => {
                     setCurrentIndex((prevIndex) => (prevIndex + 1) % healthSlides.length);
                 }, 5000);
-                
+
                 return () => clearInterval(interval);
             }, [isActive, healthSlides.length]);
-            
+
             const goToSlide = (index) => {
                 setCurrentIndex(index);
             };
-            
+
             const nextSlide = () => {
                 setCurrentIndex((prevIndex) => (prevIndex + 1) % healthSlides.length);
             };
-            
+
             const prevSlide = () => {
                 setCurrentIndex((prevIndex) => (prevIndex - 1 + healthSlides.length) % healthSlides.length);
             };
-            
+
             const handleReadMore = (blog) => {
                 setCurrentBlog(blog);
                 // Find the index of the blog in the allBlogs array
                 const blogIndex = allBlogs.findIndex(b => b.id === blog.id);
                 setCurrentBlogIndex(blogIndex);
             };
-            
+
             const handleBackToBlogs = () => {
                 setCurrentBlog(null);
             };
-            
+
             const handleNextBlog = () => {
                 if (currentBlogIndex < allBlogs.length - 1) {
                     setCurrentBlog(allBlogs[currentBlogIndex + 1]);
                     setCurrentBlogIndex(currentBlogIndex + 1);
                 }
             };
-            
+
             const handlePrevBlog = () => {
                 if (currentBlogIndex > 0) {
                     setCurrentBlog(allBlogs[currentBlogIndex - 1]);
                     setCurrentBlogIndex(currentBlogIndex - 1);
                 }
             };
-            
+
             // Enhanced mouse tracking for dynamic glow effects
             const handleMouseMove = (e) => {
                 const x = e.clientX;
                 const y = e.clientY;
-                
+
                 // Update all elements with mouse-x and mouse-y CSS variables
                 document.querySelectorAll('.health-blog-card, .popular-post-card, .health-awareness-text-container, .blog-article-image').forEach(el => {
                     const rect = el.getBoundingClientRect();
@@ -5252,26 +5745,26 @@ const Sports = ({ isReturningFromWellness }) => {
                     el.style.setProperty('--mouse-y', `${relY}%`);
                 });
             };
-            
+
             useEffect(() => {
                 if (isActive) {
                     window.addEventListener('mousemove', handleMouseMove);
                     return () => window.removeEventListener('mousemove', handleMouseMove);
                 }
             }, [isActive]);
-            
+
             return (
                 <div className={`health-blogs-page ${isActive ? 'active' : ''}`}>
                     {/* Enhanced Wellness Particles Background */}
                     <WellnessParticlesBackground />
-                    
+
                     <header className="health-blogs-header">
                         <div className="health-blogs-container">
                             <a href="#" className="health-blogs-logo" onClick={onClose}>
                                 <i className="fas fa-dumbbell logo-icon"></i>
                                 <span>ELITE</span>
                             </a>
-                            
+
                             {currentBlog ? (
                                 <a href="#" className="health-blogs-back" onClick={handleBackToBlogs}>
                                     <i className="fas fa-arrow-left"></i>
@@ -5285,11 +5778,11 @@ const Sports = ({ isReturningFromWellness }) => {
                             )}
                         </div>
                     </header>
-                    
+
                     <div className="health-blogs-content">
                         {currentBlog ? (
-                            <BlogArticlePage 
-                                blog={currentBlog} 
+                            <BlogArticlePage
+                                blog={currentBlog}
                                 onBack={handleBackToBlogs}
                                 onNext={handleNextBlog}
                                 onPrev={handlePrevBlog}
@@ -5307,7 +5800,7 @@ const Sports = ({ isReturningFromWellness }) => {
                                             Explore our collection of expert articles on health, and wellness for athletes and fitness enthusiasts.
                                         </p>
                                     </div>
-                                    
+
                                     {/* Enhanced Health Awareness Carousel */}
                                     <div className="health-awareness-carousel">
                                         <div className="health-awareness-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
@@ -5323,14 +5816,14 @@ const Sports = ({ isReturningFromWellness }) => {
                                                 </div>
                                             ))}
                                         </div>
-                                        
+
                                         <div className="health-awareness-arrow health-awareness-prev" onClick={prevSlide}>
                                             <i className="fas fa-chevron-left"></i>
                                         </div>
                                         <div className="health-awareness-arrow health-awareness-next" onClick={nextSlide}>
                                             <i className="fas fa-chevron-right"></i>
                                         </div>
-                                        
+
                                         <div className="health-awareness-nav">
                                             {healthSlides.map((_, index) => (
                                                 <div
@@ -5341,7 +5834,7 @@ const Sports = ({ isReturningFromWellness }) => {
                                             ))}
                                         </div>
                                     </div>
-                                    
+
                                     <div className="health-blogs-grid">
                                         {blogs.map(blog => (
                                             <div key={blog.id} className="health-blog-card">
@@ -5352,8 +5845,8 @@ const Sports = ({ isReturningFromWellness }) => {
                                                     <span className="health-blog-category">{blog.category}</span>
                                                     <h3 className="health-blog-title">{blog.title}</h3>
                                                     <p className="health-blog-excerpt">{blog.excerpt}</p>
-                                                    <a 
-                                                        href="#" 
+                                                    <a
+                                                        href="#"
                                                         className="health-blog-read-more"
                                                         onClick={(e) => {
                                                             e.preventDefault();
@@ -5367,8 +5860,8 @@ const Sports = ({ isReturningFromWellness }) => {
                                         ))}
                                     </div>
                                 </div>
-                                
-                              {/* Enhanced Popular Posts Section */}
+
+                                {/* Enhanced Popular Posts Section */}
                                 <div className="popular-posts-section">
                                     <div className="popular-posts-container">
                                         <div className="popular-posts-header">
@@ -5377,7 +5870,7 @@ const Sports = ({ isReturningFromWellness }) => {
                                                 Discover our most-read articles on health risks and prevention strategies to keep you motivated on your fitness journey.
                                             </p>
                                         </div>
-                                        
+
                                         <div className="popular-posts-grid">
                                             {popularPosts.map(post => (
                                                 <div key={post.id} className="popular-post-card">
@@ -5388,8 +5881,8 @@ const Sports = ({ isReturningFromWellness }) => {
                                                         <span className="popular-post-category">{post.category}</span>
                                                         <h3 className="popular-post-title">{post.title}</h3>
                                                         <p className="popular-post-excerpt">{post.excerpt}</p>
-                                                        <a 
-                                                            href="#" 
+                                                        <a
+                                                            href="#"
                                                             className="popular-post-read-more"
                                                             onClick={(e) => {
                                                                 e.preventDefault();
@@ -5410,7 +5903,7 @@ const Sports = ({ isReturningFromWellness }) => {
                 </div>
             );
         };
-        
+
         // Main App Component
         const App = () => {
             const [smashEvents, setSmashEvents] = useState([]);
@@ -5421,24 +5914,24 @@ const Sports = ({ isReturningFromWellness }) => {
             const [isReturningFromWellness, setIsReturningFromWellness] = useState(false);
             const [showLoadingScreen, setShowLoadingScreen] = useState(true);
             const [videoLoaded, setVideoLoaded] = useState(false);
-            
+
             // Preload video when app initializes
             useEffect(() => {
                 const video = document.createElement('video');
-                video.src = "video.mp4.mp4";
+                video.src = "video.mp4.webm";
                 video.preload = "auto";
                 video.muted = true;
                 video.load();
-                
+
                 video.onloadeddata = () => {
                     setVideoLoaded(true);
                 };
-                
+
                 return () => {
                     video.onloadeddata = null;
                 };
             }, []);
-            
+
             const handleSmash = useCallback((x, y) => {
                 const el = document.elementFromPoint(x, y);
                 if (el && (el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA')) return;
@@ -5447,7 +5940,7 @@ const Sports = ({ isReturningFromWellness }) => {
             const handleNavigateToWellness = useCallback(() => {
                 setShowPageTransition(true);
                 setIsReturningHome(false);
-                
+
                 setTimeout(() => {
                     setActivePage('wellness');
                     setShowPageTransition(false);
@@ -5456,17 +5949,17 @@ const Sports = ({ isReturningFromWellness }) => {
             const handleBackToHome = useCallback(() => {
                 setShowPageTransition(true);
                 setIsReturningHome(true);
-                
+
                 // Check if we're returning from Wellness Insights
                 if (activePage === 'wellness') {
                     setIsReturningFromWellness(true);
                 }
-                
+
                 // Use a 0.3s transition time when returning home
                 setTimeout(() => {
                     setActivePage(null);
                     setShowPageTransition(false);
-                    
+
                     // Reset the wellness return flag after 2 seconds
                     if (activePage === 'wellness') {
                         setTimeout(() => {
@@ -5475,20 +5968,20 @@ const Sports = ({ isReturningFromWellness }) => {
                     }
                 }, 300);
             }, [activePage]);
-            
+
             // Hide loading screen after initial load
             useEffect(() => {
                 const timer = setTimeout(() => {
                     setShowLoadingScreen(false);
                 }, 3500);
-                
+
                 return () => clearTimeout(timer);
             }, []);
-            
+
             useEffect(() => {
                 const handleMouseMove = (e) => {
                     setMousePosition({ x: e.clientX, y: e.clientY });
-                    
+
                     // Update ambient glow position
                     const glowElement = document.getElementById('ambient-glow');
                     if (glowElement) {
@@ -5499,10 +5992,10 @@ const Sports = ({ isReturningFromWellness }) => {
                 window.addEventListener('mousemove', handleMouseMove);
                 return () => window.removeEventListener('mousemove', handleMouseMove);
             }, [handleSmash]);
-            
+
             return (
                 <>
-                    <div 
+                    <div
                         className="dynamic-background"
                         style={{
                             position: 'fixed',
@@ -5520,7 +6013,7 @@ const Sports = ({ isReturningFromWellness }) => {
                     <CustomCursor onSmash={handleSmash} />
                     <SmashEffectContainer smashEvents={smashEvents} />
                     <LoadingScreen showOnLoad={showLoadingScreen} />
-                    
+
                     {activePage === null && (
                         <>
                             <Header onNavigateToWellness={handleNavigateToWellness} isReturningFromWellness={isReturningFromWellness} />
@@ -5536,17 +6029,17 @@ const Sports = ({ isReturningFromWellness }) => {
                             <Footer />
                         </>
                     )}
-                    
+
                     {activePage === 'wellness' && (
-                        <HealthBlogsPage 
-                            isActive={activePage === 'wellness'} 
-                            onClose={handleBackToHome} 
+                        <HealthBlogsPage
+                            isActive={activePage === 'wellness'}
+                            onClose={handleBackToHome}
                         />
                     )}
-                    
+
                     <div className="screen-crack"></div>
-                    <div className={`page-transition-overlay ${showPageTransition ? 'active' : ''}`} style={{ 
-                        transitionDuration: isReturningHome ? '0.3s' : '0.5s' 
+                    <div className={`page-transition-overlay ${showPageTransition ? 'active' : ''}`} style={{
+                        transitionDuration: isReturningHome ? '0.3s' : '0.5s'
                     }}>
                         <div className="page-transition-content">
                             <h2 className="page-transition-title">Loading...</h2>
@@ -5556,21 +6049,22 @@ const Sports = ({ isReturningFromWellness }) => {
                 </>
             );
         };
-        
+
         // Render the app using the new React 18 createRoot API
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);
         root.render(<App />);
-        window.addEventListener("pageshow", function() {
-    document.querySelector(".loading-screen")?.classList.add("hidden");
-    const video = document.querySelector(".hero-video");
-    if (video) {
-        video.currentTime = 0; // restart from beginning
-        video.play();          // play immediately
-    }
-    document.querySelector(".header").style.opacity = "1";
-    document.querySelector(".hero-text").style.opacity = "1";
-});
+        window.addEventListener("pageshow", function () {
+            document.querySelector(".loading-screen")?.classList.add("hidden");
+            const video = document.querySelector(".hero-video");
+            if (video) {
+                video.currentTime = 0; // restart from beginning
+                video.play();          // play immediately
+            }
+            document.querySelector(".header").style.opacity = "1";
+            document.querySelector(".hero-text").style.opacity = "1";
+        });
     </script>
 </body>
+
 </html>

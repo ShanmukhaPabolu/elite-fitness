@@ -1057,7 +1057,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
         submitBtn.disabled = true;
         
-        fetch('http://127.0.0.1:5000/api/login', {
+        fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -1088,7 +1088,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
         submitBtn.disabled = true;
 
-        fetch('http://127.0.0.1:5000/api/verify-login-otp', {
+        fetch('/api/verify-login-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -1099,7 +1099,7 @@
             if (data.success) {
                 localStorage.setItem('userName', data.name);
                 // Fetch saved static data from MongoDB
-                fetch('http://127.0.0.1:5000/api/get-data', { credentials: 'include' })
+                fetch('/api/get-data', { credentials: 'include' })
                 .then(res => res.json())
                 .then(syncData => {
                     if (syncData.success && syncData.data) {
@@ -1128,7 +1128,7 @@
         const btn = this;
         btn.disabled = true;
         
-        fetch('http://127.0.0.1:5000/api/resend-otp', {
+        fetch('/api/resend-otp', {
             method: 'POST',
             credentials: 'include'
         })
@@ -1191,7 +1191,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
         submitBtn.disabled = true;
         
-        fetch('http://127.0.0.1:5000/api/register', {
+        fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

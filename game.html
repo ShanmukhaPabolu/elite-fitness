@@ -1252,7 +1252,7 @@
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Call logout endpoint to clear session
-                fetch('http://127.0.0.1:5000/api/logout', {
+                fetch('/api/logout', {
                     method: 'POST',
                     credentials: 'include'
                 }).then(() => {

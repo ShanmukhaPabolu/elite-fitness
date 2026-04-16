@@ -388,7 +388,7 @@
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Call logout endpoint to clear session
-                fetch('http://127.0.0.1:5000/api/logout', {
+                fetch('/api/logout', {
                     method: 'POST',
                     credentials: 'include'
                 }).then(() => {
@@ -628,7 +628,7 @@
                 workoutList.innerHTML = '<li style="text-align: center;"><i class="fas fa-spinner fa-spin"></i> Generating your workout...</li>';
                 const prompt = `Generate a ${timerMinutes}-minute workout plan for a user with the following preferences: Goal: ${goal}, Fitness Level: ${level}, Equipment: ${equipment}, Workout Mode: ${mode}. Provide the plan as a numbered list of exercises with sets/reps or time, including a warm-up and cool-down. No special characters or greetings.`;
                 
-                fetch('http://127.0.0.1:5000/api/askAI', {
+                fetch('/api/askAI', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: prompt })
@@ -674,7 +674,7 @@
                         user_email: localStorage.getItem('user_email') || 'test@example.com'
                     };
                     
-                    const response = await fetch('http://127.0.0.1:5000/api/workout-logs', {
+                    const response = await fetch('/api/workout-logs', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify(workoutData)

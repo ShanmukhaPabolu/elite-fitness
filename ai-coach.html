@@ -1505,7 +1505,7 @@
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 // Call logout endpoint to clear session
-                fetch('http://127.0.0.1:5000/api/logout', {
+                fetch('/api/logout', {
                     method: 'POST',
                     credentials: 'include'
                 }).then(() => {
@@ -1741,7 +1741,7 @@
                     // --- FIX END ---
 
                     try {
-                        const response = await fetch('http://127.0.0.1:5000/api/askAI', {
+                        const response = await fetch('/api/askAI', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             // --- FIX: Pass language code in the body ---
