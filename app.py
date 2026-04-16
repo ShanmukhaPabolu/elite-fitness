@@ -73,7 +73,7 @@ def is_mongodb_connected():
 
 try:
     # Increase the timeout for the connection
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000, connectTimeoutMS=10000, socketTimeoutMS=10000)
+    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000, socketTimeoutMS=10000)
     client.admin.command('ping')
     logger.info("Successfully connected to MongoDB")
     

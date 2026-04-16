@@ -3,8 +3,11 @@
 *.webm
 *.mov
 *.avi
+*.wav
+*.mp3
 __pycache__/
 *.pyc
 .vscode/
 .idea/
 .DS_Store
+video.mp4.webm
