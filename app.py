@@ -354,11 +354,11 @@ def generate_plan():
             error_str = str(e)
             if "429" in error_str or "quota" in error_str.lower() or "exceeded" in error_str.lower():
                 logger.warning("Gemini API quota exceeded. Using fallback plan.")
-                # Use fallback plan instead of failing
-                response_text = None
             else:
-                # For other errors, return error message
-                raise
+                logger.warning(f"Other API error occurred: {error_str}. Using fallback plan.")
+            
+            # Use fallback plan instead of failing for ANY error
+            response_text = None
 
         # Clean markdown fences if present
         if isinstance(response_text, str):
