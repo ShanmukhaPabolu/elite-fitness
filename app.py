@@ -48,7 +48,7 @@ else:
     genai.configure(api_key=API_KEY)
 
 # MongoDB Configuration
-MONGO_URI = "mongodb://localhost:27017/"
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME = "fitness"
 
 # Global variables for collections
