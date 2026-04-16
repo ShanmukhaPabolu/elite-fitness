@@ -117,6 +117,14 @@ def open_browser():
 # =============================================================
 # Frontend Page Routes
 # =============================================================
+
+@app.after_request
+def add_header(response):
+    # Prevent aggressive caching on the frontend so users immediately see new UI/JS updates
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 @app.route('/')
 def index_page():
     return send_from_directory(app.root_path, 'index.html')
