@@ -55,7 +55,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
             background: var(--bg-dark);
             display: flex;
@@ -179,7 +179,7 @@
         
         /* DYNAMIC BACKGROUND & CURSOR */
         #particle-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -10; }
-        #ambient-glow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; background: radial-gradient(circle at var(--x) var(--y), rgba(0, 255, 255, 0.15) 0%, transparent 40%); transition: background 0.3s ease-out; }
+        #ambient-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 9999; background: radial-gradient(circle at var(--x) var(--y), rgba(0, 255, 255, 0.15) 0%, transparent 40%); transition: background 0.3s ease-out; }
         .custom-cursor { position: fixed; width: 40px; height: 40px; z-index: 10011; pointer-events: none; transform: translate(-50%, -50%); transition: transform 0.1s ease, color 0.3s ease; }
         .dumbbell-cursor { font-size: 40px; color: var(--accent-color); animation: rotate 3s linear infinite; filter: drop-shadow(0 0 15px var(--accent-color)); transition: color 0.3s ease, filter 0.3s ease;}
         
@@ -350,6 +350,7 @@
         }
     </style>
     <script src="/static/sync.js"></script>
+    <link rel="stylesheet" href="static/responsive.css">
 </head>
 <body>
     <canvas id="particle-background"></canvas>

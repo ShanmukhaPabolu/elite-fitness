@@ -1,0 +1,129 @@
+/* ========================================================================
+   GLOBAL RESPONSIVE OVERRIDES
+   ======================================================================== */
+
+/* 1. Prevent Horizontal Scrolling */
+body, html {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
+/* Base resets to prevent overflow */
+img, video, iframe, canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Remove forced widths */
+[style*="width: 100vw"] {
+    width: 100% !important;
+}
+
+/* 2. Breakpoint for Tablets and Small Desktops */
+@media (max-width: 968px) {
+    /* Collapse generic css grids */
+    [style*="grid-template-columns"],
+    .programs-grid, .diet-grid, .facts-grid, .features-grid,
+    .challenges-container, .stats-grid, #workout-stats, 
+    .about-features, .footer-links, .rewards-content,
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Ensure flex containers wrap properly */
+    .hero-buttons, .hero-features, .workout-display-area,
+    .workout-setup, .language-select-container, .chat-input-container {
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        gap: 15px !important;
+    }
+
+    /* Force hero feature cards to be full width on mobile */
+    .hero-feature {
+        width: 100% !important;
+    }
+
+    /* Hide the misaligned scroll indicator on small screens */
+    .scroll-indicator {
+        display: none !important;
+    }
+    
+    /* For elements that are supposed to be somewhat wide but overflow */
+    .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 4rem) !important;
+        margin-left: 0 !important;
+        text-align: center !important;
+    }
+    
+    .hero-text {
+        text-align: center !important;
+    }
+    
+    .section-title {
+        font-size: clamp(2rem, 6vw, 3rem) !important;
+    }
+
+    .video-container, .workout-video-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .chat-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 60vh !important;
+    }
+}
+
+/* 3. Breakpoint for Mobile Phones */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .hero-title {
+        font-size: 2.2rem !important;
+    }
+
+    .sport-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .nav-item {
+        font-size: 1rem !important;
+        padding: 0.8rem 1.5rem !important;
+    }
+    
+    /* Override arbitrary fixed dimensions frequently used */
+    .selection-bubble {
+        width: 100% !important;
+        height: auto !important;
+        padding: 15px !important;
+        border-radius: 12px !important;
+    }
+    
+    .feature-card {
+        padding: 1.5rem !important;
+    }
+
+    /* Center layout for footer elements on mobile screens */
+    .footer-links, .footer-bottom-content, .footer-main {
+        text-align: center !important;
+        align-items: center !important;
+        justify-items: center !important;
+    }
+
+    .footer-social {
+        justify-content: center !important;
+    }
+}

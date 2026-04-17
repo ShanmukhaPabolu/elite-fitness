@@ -1,1 +1,1 @@
-web: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
+web: PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
