@@ -951,11 +951,6 @@ def register():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    # Clear any previous OTP session data
-    session.pop('otp', None)
-    session.pop('otp_timestamp', None)
-    session.pop('resend_count', None)
-
     data = request.json
     email = data.get('email')
     password = data.get('password')
@@ -970,16 +965,18 @@ def login():
         body = f"OTP For Login is: {otp} VALID FOR 5 MINUTES"
         
         success, status = send_otp_email(email, otp, subject, body)
-        session['otp'] = otp
-        session['otp_timestamp'] = datetime.now(timezone.utc)
-        session['temp_user_email'] = email
-        session['resend_count'] = 0
-        
-        if success:
-            return jsonify({"success": True, "message": "OTP sent to your email."}), 200
-        else:
+        if not success:
             logger.error(f"Failed to send OTP email. Status: {status}")
             return jsonify({"success": False, "message": "Failed to send OTP email. Please check email configuration."}), 500
+
+        # Store OTP in MongoDB (works on serverless / Vercel)
+        otp_store = db["otp_store"]
+        otp_store.update_one(
+            {"email": email, "flow": "login"},
+            {"$set": {"otp": otp, "timestamp": datetime.now(timezone.utc), "resend_count": 0}},
+            upsert=True
+        )
+        return jsonify({"success": True, "message": "OTP sent to your email."}), 200
     else:
         return jsonify({"success": False, "message": "Invalid email or password."}), 401
 
@@ -987,29 +984,24 @@ def login():
 def verify_login_otp():
     data = request.json
     otp = data.get('otp')
-    
-    stored_otp = session.get('otp')
-    otp_timestamp = session.get('otp_timestamp')
-    
-    if not stored_otp or not otp_timestamp:
+    email = data.get('email')
+
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+
+    otp_store = db["otp_store"]
+    record = otp_store.find_one({"email": email, "flow": "login"})
+
+    if not record:
         return jsonify({"success": False, "message": "OTP not found or expired. Please try again."}), 400
-        
-    if datetime.now(timezone.utc) - otp_timestamp > timedelta(minutes=5):
-        session.pop('otp', None)
-        session.pop('otp_timestamp', None)
-        session.pop('resend_count', None)
+
+    if datetime.now(timezone.utc) - record["timestamp"] > timedelta(minutes=5):
+        otp_store.delete_one({"email": email, "flow": "login"})
         return jsonify({"success": False, "message": "OTP has expired. Please try again."}), 400
-        
-    if otp == stored_otp:
-        if not is_mongodb_connected():
-            return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
-            
-        user_email = session.get('temp_user_email')
-        user = users_collection.find_one({"email": user_email})
-        
-        for key in ['otp', 'otp_timestamp', 'temp_user_email', 'resend_count']:
-            session.pop(key, None)
-        
+
+    if otp == record["otp"]:
+        otp_store.delete_one({"email": email, "flow": "login"})
+        user = users_collection.find_one({"email": email})
         session['logged_in'] = True
         session['user_email'] = user['email']
         session['user_name'] = user['name']
@@ -1022,11 +1014,6 @@ def verify_login_otp():
 # =============================================================
 @app.route('/api/forgot-password', methods=['POST'])
 def forgot_password():
-    # Clear any previous OTP session data
-    session.pop('otp', None)
-    session.pop('otp_timestamp', None)
-    session.pop('resend_count', None)
-    
     data = request.json
     email = data.get('email')
 
@@ -1043,44 +1030,43 @@ def forgot_password():
     otp = generate_otp()
     subject = "OTP for Elite Performance Password Reset"
     body = f"OTP For Resetting The Password is: {otp} VALID FOR 5 MINUTES"
-    
+
     success, status = send_otp_email(email, otp, subject, body)
-    session['otp'] = otp
-    session['otp_timestamp'] = datetime.now(timezone.utc)
-    session['reset_email'] = email
-    session['resend_count'] = 0
-    
-    if success:
-        return jsonify({"success": True, "message": "OTP sent to your email."}), 200
-    else:
+    if not success:
         logger.error(f"Failed to send OTP email. Status: {status}")
         return jsonify({"success": False, "message": "Failed to send OTP email. Please check email configuration."}), 500
+
+    # Store OTP in MongoDB (works on serverless / Vercel)
+    otp_store = db["otp_store"]
+    otp_store.update_one(
+        {"email": email, "flow": "reset"},
+        {"$set": {"otp": otp, "timestamp": datetime.now(timezone.utc), "resend_count": 0}},
+        upsert=True
+    )
+    return jsonify({"success": True, "message": "OTP sent to your email."}), 200
 
 @app.route('/api/verify-forgot-password-otp', methods=['POST'])
 def verify_forgot_password_otp():
     data = request.json
     otp = data.get('otp')
     new_password = data.get('new_password')
+    email = data.get('email')
 
-    stored_otp = session.get('otp')
-    otp_timestamp = session.get('otp_timestamp')
-    email = session.get('reset_email')
-    
-    if not stored_otp or not otp_timestamp or not email:
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+
+    otp_store = db["otp_store"]
+    record = otp_store.find_one({"email": email, "flow": "reset"})
+
+    if not record:
         return jsonify({"success": False, "message": "OTP not found or expired. Please try again."}), 400
-        
-    if datetime.now(timezone.utc) - otp_timestamp > timedelta(minutes=5):
-        for key in ['otp', 'otp_timestamp', 'reset_email', 'resend_count']:
-            session.pop(key, None)
+
+    if datetime.now(timezone.utc) - record["timestamp"] > timedelta(minutes=5):
+        otp_store.delete_one({"email": email, "flow": "reset"})
         return jsonify({"success": False, "message": "OTP has expired. Please try again."}), 400
-        
-    if otp == stored_otp:
-        for key in ['otp', 'otp_timestamp', 'reset_email', 'resend_count']:
-            session.pop(key, None)
-        
-        if not is_mongodb_connected():
-            return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
-            
+
+    if otp == record["otp"]:
+        otp_store.delete_one({"email": email, "flow": "reset"})
         new_hashed_password = generate_password_hash(new_password)
         users_collection.update_one({"email": email}, {"$set": {"password": new_hashed_password}})
         return jsonify({"success": True, "message": "Password updated successfully."}), 200
@@ -1092,55 +1078,41 @@ def verify_forgot_password_otp():
 # =============================================================
 @app.route('/api/resend-otp', methods=['POST'])
 def resend_otp():
-    otp_timestamp = session.get('otp_timestamp')
-    user_email = session.get('temp_user_email') or session.get('reset_email')
+    data = request.json
+    email = data.get('email')
+    flow = data.get('flow', 'login')  # 'login' or 'reset'
 
-    if not otp_timestamp or not user_email:
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+
+    otp_store = db["otp_store"]
+    record = otp_store.find_one({"email": email, "flow": flow})
+
+    if not record:
         return jsonify({"success": False, "message": "No active OTP session. Please start over."}), 400
-    
-    # Determine the context of the OTP request
-    is_login_flow = 'temp_user_email' in session
-    subject = "OTP for Elite Performance Login" if is_login_flow else "OTP for Elite Performance Password Reset"
 
-    is_expired = (datetime.now(timezone.utc) - otp_timestamp) > timedelta(minutes=5)
+    resend_count = record.get("resend_count", 0)
+    if resend_count >= 3:
+        return jsonify({"success": False, "message": "Max resend attempts reached. Please wait for a new OTP."}), 429
 
-    if is_expired:
-        new_otp = generate_otp()
-        body = f"Your OTP is: {new_otp}"
-        success, status = send_otp_email(user_email, new_otp, subject, body)
-        session['otp'] = new_otp
-        session['otp_timestamp'] = datetime.now(timezone.utc)
-        session['resend_count'] = 0
-        
-        if success:
-            return jsonify({"success": True, "message": "Your previous OTP expired. A new one has been sent."})
-        else:
-            msg = f"New OTP generated (SMTP not configured, use testing OTP: {new_otp})"
-            if status != "SMTP_NOT_CONFIGURED":
-                msg = f"New OTP generated (Email delivery failed, use testing OTP: {new_otp})"
-            logger.warning(f"Fallback active: {msg}")
-            return jsonify({"success": True, "message": msg})
-    else:
-        resend_count = session.get('resend_count', 0)
-        if resend_count >= 3:
-            return jsonify({"success": False, "message": "Max resend attempts reached. Please wait 5 minutes for a new OTP."}), 429
-        
-        current_otp = session.get('otp')
-        body = f"Your OTP is: {current_otp}"
-        success, status = send_otp_email(user_email, current_otp, subject, body)
-        
-        if success:
-            session['resend_count'] = resend_count + 1
-            remaining = 3 - session['resend_count']
-            return jsonify({"success": True, "message": f"OTP has been resent. You have {remaining} attempts remaining."})
-        else:
-            session['resend_count'] = resend_count + 1
-            remaining = 3 - session['resend_count']
-            msg = f"OTP generated (SMTP not configured, use testing OTP: {current_otp}). {remaining} attempts remaining."
-            if status != "SMTP_NOT_CONFIGURED":
-                msg = f"OTP generated (Email delivery failed, use testing OTP: {current_otp}). {remaining} attempts remaining."
-            logger.warning(f"Fallback active: {msg}")
-            return jsonify({"success": True, "message": msg})
+    subject = "OTP for Elite Performance Login" if flow == "login" else "OTP for Elite Performance Password Reset"
+    is_expired = (datetime.now(timezone.utc) - record["timestamp"]) > timedelta(minutes=5)
+
+    new_otp = generate_otp()
+    body = f"Your OTP is: {new_otp} VALID FOR 5 MINUTES"
+    success, status = send_otp_email(email, new_otp, subject, body)
+
+    if not success:
+        return jsonify({"success": False, "message": "Failed to send OTP email."}), 500
+
+    otp_store.update_one(
+        {"email": email, "flow": flow},
+        {"$set": {"otp": new_otp, "timestamp": datetime.now(timezone.utc), "resend_count": resend_count + 1}}
+    )
+
+    remaining = 3 - (resend_count + 1)
+    msg = "Your previous OTP expired. A new one has been sent." if is_expired else f"OTP has been resent. You have {remaining} attempts remaining."
+    return jsonify({"success": True, "message": msg})
 
 # =============================================================
 # Reset Password (Logged-in Users)

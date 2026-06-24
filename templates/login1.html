@@ -1002,12 +1002,18 @@
             if(errorElement) errorElement.classList.remove('show');
         }
         
+        // Store email so OTP verify can use it (needed for MongoDB-based OTP on Vercel)
+        let currentLoginEmail = '';
+
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail');
             const password = document.getElementById('loginPassword');
             if (!validateEmail(email.value)) return showError('loginEmail', 'Please enter a valid email.');
             if (!password.value) return showError('loginPassword', 'Password is required.');
+
+            currentLoginEmail = email.value;
+
             const submitBtn = this.querySelector('.submit-btn');
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
             submitBtn.disabled = true;
@@ -1043,7 +1049,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ otp: otp })
+                body: JSON.stringify({ otp: otp, email: currentLoginEmail })
             })
             .then(response => response.json())
             .then(data => {
@@ -1078,7 +1084,9 @@
             
             fetch('/api/resend-otp', {
                 method: 'POST',
-                credentials: 'include'
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email: currentLoginEmail, flow: 'login' })
             })
             .then(response => response.json())
             .then(data => {
