@@ -127,100 +127,115 @@ def add_header(response):
     return response
 @app.route('/')
 def index_page():
-    return send_from_directory(app.root_path, 'index.html')
+    return render_template('index.html')
 
 @app.route('/login.html')
 def login_page():
-    return send_from_directory(app.root_path, 'login.html')
+    return render_template('login.html')
 
 @app.route('/forgot_password.html')
 def forgot_password_page():
-    return send_from_directory(app.root_path, 'forgot_password.html')
+    return render_template('forgot_password.html')
 
 @app.route('/goal.html')
 def goal_page():
-    return send_from_directory(app.root_path, 'goal.html')
+    return render_template('goal.html')
 
 @app.route('/ai-coach.html')
 def ai_coach_page():
-    return send_from_directory(app.root_path, 'ai-coach.html')
+    return render_template('ai-coach.html')
 
 @app.route('/ai.html')
 def ai_page():
-    return send_from_directory(app.root_path, 'ai.html')
+    return render_template('ai.html')
 
 @app.route('/aivoice.html')
 def aivoice_page():
-    return send_from_directory(app.root_path, 'aivoice.html')
+    return render_template('aivoice.html')
 
 @app.route('/aura.html')
 def aura_page():
-    return send_from_directory(app.root_path, 'aura.html')
+    return render_template('aura.html')
     
 @app.route('/game.html')
 def game_page():
-    return send_from_directory(app.root_path, 'game.html')
+    return render_template('game.html')
 
 @app.route('/leader.html')
 def leader_page():
-    return send_from_directory(app.root_path, 'leader.html')
+    return render_template('leader.html')
     
 @app.route('/login1.html')
 def login1_page():
-    return send_from_directory(app.root_path, 'login1.html')
+    return render_template('login1.html')
     
 @app.route('/plan.html')
 def plan_page():
-    return send_from_directory(app.root_path, 'plan.html')
+    return render_template('plan.html')
     
 @app.route('/sports.html')
 def sports_page():
-    return send_from_directory(app.root_path, 'sports.html')
+    return render_template('sports.html')
     
 @app.route('/stat.html')
 def stat_page():
-    return send_from_directory(app.root_path, 'stat.html')
+    return render_template('stat.html')
 
 @app.route('/workout.html')
 def workout_page():
-    return send_from_directory(app.root_path, 'workout.html')
+    return render_template('workout.html')
 
 @app.route('/lean.png')
 def lean_image():
-    return send_from_directory(app.root_path, 'lean.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'lean.png')
 
 @app.route('/overweight.png')
 def overweight_image():
-    return send_from_directory(app.root_path, 'overweight.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'overweight.png')
 
 @app.route('/obese.png')
 def obese_image():
-    return send_from_directory(app.root_path, 'obese.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'obese.png')
 
 @app.route('/muscular.png') 
 def muscular_image():
-    return send_from_directory(app.root_path, 'muscular.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'muscular.png')
 @app.route('/athletic.png')
 def athletic_image():
-    return send_from_directory(app.root_path, 'athletic.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'athletic.png')
 @app.route('/stocky.png')
 def stocky_image():
-    return send_from_directory(app.root_path, 'stocky.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'stocky.png')
 
 @app.route('/video.mp4.mp4')
 def video_file():
-    return send_from_directory(app.root_path, 'video.mp4.mp4')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'media'), 'video.mp4.mp4')
 
 @app.route('/jj.png')
 def jj_image():
-    return send_from_directory(app.root_path, 'jj.png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'jj.png')
 
-# Generic route to serve images and media from the root directory
+# Generic route to serve images and media from their new structured directories
 @app.route('/<path:filename>')
 def serve_root_assets(filename):
-    # Only serve files with specific extensions from the root
-    if filename.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.webm', '.mp4', '.wav', '.mp3')):
-        return send_from_directory(app.root_path, filename)
+    # Only serve files with specific extensions
+    if filename.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.webm')):
+        # Check static/images
+        images_dir = os.path.join(app.root_path, 'static', 'images')
+        if os.path.exists(os.path.join(images_dir, filename)):
+            return send_from_directory(images_dir, filename)
+            
+        # Check static/textures
+        textures_dir = os.path.join(app.root_path, 'static', 'textures')
+        if os.path.exists(os.path.join(textures_dir, filename)):
+            return send_from_directory(textures_dir, filename)
+            
+    elif filename.endswith(('.mp4', '.wav', '.mp3')):
+        # Check static/media
+        media_dir = os.path.join(app.root_path, 'static', 'media')
+        if os.path.exists(os.path.join(media_dir, filename)):
+            return send_from_directory(media_dir, filename)
+            
     # If not a recognized asset, let other routes handle it or return 404
     return "File not found", 404
 
