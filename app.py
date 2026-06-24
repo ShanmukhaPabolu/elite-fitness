@@ -125,65 +125,68 @@ def add_header(response):
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '-1'
     return response
+def render_static_html(filename):
+    return send_from_directory(os.path.join(app.root_path, 'templates'), filename)
+
 @app.route('/')
 def index_page():
-    return render_template('index.html')
+    return render_static_html('index.html')
 
 @app.route('/login.html')
 def login_page():
-    return render_template('login.html')
+    return render_static_html('login.html')
 
 @app.route('/forgot_password.html')
 def forgot_password_page():
-    return render_template('forgot_password.html')
+    return render_static_html('forgot_password.html')
 
 @app.route('/goal.html')
 def goal_page():
-    return render_template('goal.html')
+    return render_static_html('goal.html')
 
 @app.route('/ai-coach.html')
 def ai_coach_page():
-    return render_template('ai-coach.html')
+    return render_static_html('ai-coach.html')
 
 @app.route('/ai.html')
 def ai_page():
-    return render_template('ai.html')
+    return render_static_html('ai.html')
 
 @app.route('/aivoice.html')
 def aivoice_page():
-    return render_template('aivoice.html')
+    return render_static_html('aivoice.html')
 
 @app.route('/aura.html')
 def aura_page():
-    return render_template('aura.html')
+    return render_static_html('aura.html')
     
 @app.route('/game.html')
 def game_page():
-    return render_template('game.html')
+    return render_static_html('game.html')
 
 @app.route('/leader.html')
 def leader_page():
-    return render_template('leader.html')
+    return render_static_html('leader.html')
     
 @app.route('/login1.html')
 def login1_page():
-    return render_template('login1.html')
+    return render_static_html('login1.html')
     
 @app.route('/plan.html')
 def plan_page():
-    return render_template('plan.html')
+    return render_static_html('plan.html')
     
 @app.route('/sports.html')
 def sports_page():
-    return render_template('sports.html')
+    return render_static_html('sports.html')
     
 @app.route('/stat.html')
 def stat_page():
-    return render_template('stat.html')
+    return render_static_html('stat.html')
 
 @app.route('/workout.html')
 def workout_page():
-    return render_template('workout.html')
+    return render_static_html('workout.html')
 
 @app.route('/lean.png')
 def lean_image():

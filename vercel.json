@@ -4,5 +4,12 @@
       "source": "/(.*)",
       "destination": "/api/index"
     }
-  ]
+  ],
+  "experimentalServices": {
+    "web": {
+      "type": "web",
+      "entrypoint": "app.py",
+      "routePrefix": "/"
+    }
+  }
 }
