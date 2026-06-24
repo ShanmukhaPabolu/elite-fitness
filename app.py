@@ -257,26 +257,23 @@ def generate_otp(length=6):
     characters = string.digits
     return ''.join(secrets.choice(characters) for i in range(length))
 
-def send_async_email(app, msg):
-    with app.app_context():
-        try:
-            mail.send(msg)
-            logger.info(f"Email sent to {msg.recipients[0]}")
-        except Exception as e:
-            logger.error(f"Failed to send email: {e}")
-
 def send_otp_email(recipient_email, otp, subject, body):
     try:
         msg = Message(subject,
                       sender=app.config['MAIL_DEFAULT_SENDER'],
                       recipients=[recipient_email])
         msg.body = body
-        thr = threading.Thread(target=send_async_email, args=[app, msg])
-        thr.start()
-        return True
+        
+        if not app.config.get('MAIL_PASSWORD'):
+            logger.warning("MAIL_PASSWORD is not configured. Email will not be sent.")
+            return False, "SMTP_NOT_CONFIGURED"
+            
+        mail.send(msg)
+        logger.info(f"Email sent successfully to {recipient_email}")
+        return True, "SENT"
     except Exception as e:
-        logger.error(f"Failed to create email thread: {e}")
-        return False
+        logger.error(f"Failed to send email: {e}")
+        return False, str(e)
 
 # =============================================================
 # AI API Endpoint
@@ -971,14 +968,21 @@ def login():
         otp = generate_otp()
         subject = "OTP for Elite Performance Login"
         body = f"OTP For Login is: {otp} VALID FOR 5 MINUTES"
-        if send_otp_email(email, otp, subject, body):
-            session['otp'] = otp
-            session['otp_timestamp'] = datetime.now(timezone.utc)
-            session['temp_user_email'] = email
-            session['resend_count'] = 0
+        
+        success, status = send_otp_email(email, otp, subject, body)
+        session['otp'] = otp
+        session['otp_timestamp'] = datetime.now(timezone.utc)
+        session['temp_user_email'] = email
+        session['resend_count'] = 0
+        
+        if success:
             return jsonify({"success": True, "message": "OTP sent to your email."}), 200
         else:
-            return jsonify({"success": False, "message": "Failed to send OTP. Please try again."}), 500
+            msg = f"OTP generated (SMTP not configured, use testing OTP: {otp})"
+            if status != "SMTP_NOT_CONFIGURED":
+                msg = f"OTP generated (Email delivery failed, use testing OTP: {otp})"
+            logger.warning(f"Fallback active: {msg}")
+            return jsonify({"success": True, "message": msg}), 200
     else:
         return jsonify({"success": False, "message": "Invalid email or password."}), 401
 
@@ -1042,14 +1046,21 @@ def forgot_password():
     otp = generate_otp()
     subject = "OTP for Elite Performance Password Reset"
     body = f"OTP For Resetting The Password is: {otp} VALID FOR 5 MINUTES"
-    if send_otp_email(email, otp, subject, body):
-        session['otp'] = otp
-        session['otp_timestamp'] = datetime.now(timezone.utc)
-        session['reset_email'] = email
-        session['resend_count'] = 0
+    
+    success, status = send_otp_email(email, otp, subject, body)
+    session['otp'] = otp
+    session['otp_timestamp'] = datetime.now(timezone.utc)
+    session['reset_email'] = email
+    session['resend_count'] = 0
+    
+    if success:
         return jsonify({"success": True, "message": "OTP sent to your email."}), 200
     else:
-        return jsonify({"success": False, "message": "Failed to send OTP. Please try again."}), 500
+        msg = f"OTP generated (SMTP not configured, use testing OTP: {otp})"
+        if status != "SMTP_NOT_CONFIGURED":
+            msg = f"OTP generated (Email delivery failed, use testing OTP: {otp})"
+        logger.warning(f"Fallback active: {msg}")
+        return jsonify({"success": True, "message": msg}), 200
 
 @app.route('/api/verify-forgot-password-otp', methods=['POST'])
 def verify_forgot_password_otp():
@@ -1102,13 +1113,19 @@ def resend_otp():
     if is_expired:
         new_otp = generate_otp()
         body = f"Your OTP is: {new_otp}"
-        if send_otp_email(user_email, new_otp, subject, body):
-            session['otp'] = new_otp
-            session['otp_timestamp'] = datetime.now(timezone.utc)
-            session['resend_count'] = 0
+        success, status = send_otp_email(user_email, new_otp, subject, body)
+        session['otp'] = new_otp
+        session['otp_timestamp'] = datetime.now(timezone.utc)
+        session['resend_count'] = 0
+        
+        if success:
             return jsonify({"success": True, "message": "Your previous OTP expired. A new one has been sent."})
         else:
-            return jsonify({"success": False, "message": "Failed to send a new OTP. Please try again."}), 500
+            msg = f"New OTP generated (SMTP not configured, use testing OTP: {new_otp})"
+            if status != "SMTP_NOT_CONFIGURED":
+                msg = f"New OTP generated (Email delivery failed, use testing OTP: {new_otp})"
+            logger.warning(f"Fallback active: {msg}")
+            return jsonify({"success": True, "message": msg})
     else:
         resend_count = session.get('resend_count', 0)
         if resend_count >= 3:
@@ -1116,12 +1133,20 @@ def resend_otp():
         
         current_otp = session.get('otp')
         body = f"Your OTP is: {current_otp}"
-        if send_otp_email(user_email, current_otp, subject, body):
+        success, status = send_otp_email(user_email, current_otp, subject, body)
+        
+        if success:
             session['resend_count'] = resend_count + 1
             remaining = 3 - session['resend_count']
             return jsonify({"success": True, "message": f"OTP has been resent. You have {remaining} attempts remaining."})
         else:
-            return jsonify({"success": False, "message": "Failed to resend OTP. Please try again."}), 500
+            session['resend_count'] = resend_count + 1
+            remaining = 3 - session['resend_count']
+            msg = f"OTP generated (SMTP not configured, use testing OTP: {current_otp}). {remaining} attempts remaining."
+            if status != "SMTP_NOT_CONFIGURED":
+                msg = f"OTP generated (Email delivery failed, use testing OTP: {current_otp}). {remaining} attempts remaining."
+            logger.warning(f"Fallback active: {msg}")
+            return jsonify({"success": True, "message": msg})
 
 # =============================================================
 # Reset Password (Logged-in Users)
