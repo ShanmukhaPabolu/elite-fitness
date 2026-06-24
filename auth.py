@@ -67,12 +67,13 @@ def google_callback():
         name = user_info.get('name', user_info.get('given_name', 'User'))
         
         try:
-            from app import users_collection
+            from app import get_users_collection
+            users_coll = get_users_collection()
             import datetime
-            if users_collection is not None and email:
-                existing_user = users_collection.find_one({"email": email})
+            if users_coll is not None and email:
+                existing_user = users_coll.find_one({"email": email})
                 if not existing_user:
-                    users_collection.insert_one({
+                    users_coll.insert_one({
                         "name": name,
                         "email": email,
                         "auth_provider": "google",
@@ -145,12 +146,13 @@ def facebook_callback():
         name = user_info.get('name', 'User')
         
         try:
-            from app import users_collection
+            from app import get_users_collection
+            users_coll = get_users_collection()
             import datetime
-            if users_collection is not None and email:
-                existing_user = users_collection.find_one({"email": email})
+            if users_coll is not None and email:
+                existing_user = users_coll.find_one({"email": email})
                 if not existing_user:
-                    users_collection.insert_one({
+                    users_coll.insert_one({
                         "name": name,
                         "email": email,
                         "auth_provider": "facebook",

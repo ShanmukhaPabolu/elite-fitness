@@ -62,45 +62,51 @@ sleep_logs = None
 # Global flag to track if browser has been opened
 browser_opened = False
 
-def is_mongodb_connected():
-    try:
-        if client is None:
+def ensure_db_initialized():
+    global client, db, users_collection, workout_logs, user_data_collection, sleep_logs
+    if client is None:
+        try:
+            client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000, socketTimeoutMS=10000)
+        except Exception as e:
+            logger.error(f"Failed to create MongoClient: {e}")
             return False
+            
+    try:
         client.admin.command('ping')
+        if db is None or users_collection is None:
+            db = client[DB_NAME]
+            users_collection = db.users
+            workout_logs = db.workout_logs
+            user_data_collection = db.user_data
+            sleep_logs = db.sleep_logs
+            
+            workout_logs.create_index([("user_email", 1), ("date", -1)])
+            
+            required_collections = ['users', 'workout_logs', 'user_data', 'sleep_logs', 'game_data', 'aura_data']
+            existing_collections = db.list_collection_names()
+            
+            for coll in required_collections:
+                if coll not in existing_collections:
+                    db.create_collection(coll)
+                    logger.info(f"Created collection: {coll}")
+            logger.info("Database and collections initialized successfully")
         return True
-    except:
+    except Exception as e:
+        logger.error(f"MongoDB connection/initialization error: {e}")
         return False
 
+def is_mongodb_connected():
+    return ensure_db_initialized()
+
+def get_users_collection():
+    ensure_db_initialized()
+    return users_collection
+
+# Try to initialize at startup (fails gracefully if DB is temporarily unreachable)
 try:
-    # Increase the timeout for the connection
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000, socketTimeoutMS=10000)
-    client.admin.command('ping')
-    logger.info("Successfully connected to MongoDB")
-    
-    db = client[DB_NAME]
-    users_collection = db.users
-    workout_logs = db.workout_logs
-    user_data_collection = db.user_data
-    sleep_logs = db.sleep_logs
-    
-    workout_logs.create_index([("user_email", 1), ("date", -1)])
-    
-    required_collections = ['users', 'workout_logs', 'user_data', 'sleep_logs', 'game_data', 'aura_data']
-    existing_collections = db.list_collection_names()
-    
-    for coll in required_collections:
-        if coll not in existing_collections:
-            db.create_collection(coll)
-            logger.info(f"Created collection: {coll}")
-    
-    logger.info("Database and collections initialized")
-    
-except errors.ServerSelectionTimeoutError as err:
-    logger.error(f"MongoDB connection error: {err}")
-    logger.warning("Running without MongoDB connection. Database operations will not work.")
+    ensure_db_initialized()
 except Exception as e:
-    logger.error(f"Unexpected error initializing database: {e}")
-    logger.warning("Running without MongoDB connection. Database operations will not work.")
+    logger.warning(f"Initial MongoDB connection attempt failed: {e}. Will retry dynamically on requests.")
 
 # Register auth blueprint
 from auth import auth_blueprint
