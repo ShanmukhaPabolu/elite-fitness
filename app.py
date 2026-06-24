@@ -973,7 +973,7 @@ def login():
         otp_store = db["otp_store"]
         otp_store.update_one(
             {"email": email, "flow": "login"},
-            {"$set": {"otp": otp, "timestamp": datetime.now(timezone.utc), "resend_count": 0}},
+            {"$set": {"otp": otp, "timestamp": datetime.utcnow(), "resend_count": 0}},
             upsert=True
         )
         return jsonify({"success": True, "message": "OTP sent to your email."}), 200
@@ -995,7 +995,10 @@ def verify_login_otp():
     if not record:
         return jsonify({"success": False, "message": "OTP not found or expired. Please try again."}), 400
 
-    if datetime.now(timezone.utc) - record["timestamp"] > timedelta(minutes=5):
+    stored_time = record["timestamp"]
+    if stored_time.tzinfo is not None:
+        stored_time = stored_time.replace(tzinfo=None)
+    if datetime.utcnow() - stored_time > timedelta(minutes=5):
         otp_store.delete_one({"email": email, "flow": "login"})
         return jsonify({"success": False, "message": "OTP has expired. Please try again."}), 400
 
@@ -1040,7 +1043,7 @@ def forgot_password():
     otp_store = db["otp_store"]
     otp_store.update_one(
         {"email": email, "flow": "reset"},
-        {"$set": {"otp": otp, "timestamp": datetime.now(timezone.utc), "resend_count": 0}},
+        {"$set": {"otp": otp, "timestamp": datetime.utcnow(), "resend_count": 0}},
         upsert=True
     )
     return jsonify({"success": True, "message": "OTP sent to your email."}), 200
@@ -1061,7 +1064,10 @@ def verify_forgot_password_otp():
     if not record:
         return jsonify({"success": False, "message": "OTP not found or expired. Please try again."}), 400
 
-    if datetime.now(timezone.utc) - record["timestamp"] > timedelta(minutes=5):
+    stored_time = record["timestamp"]
+    if stored_time.tzinfo is not None:
+        stored_time = stored_time.replace(tzinfo=None)
+    if datetime.utcnow() - stored_time > timedelta(minutes=5):
         otp_store.delete_one({"email": email, "flow": "reset"})
         return jsonify({"success": False, "message": "OTP has expired. Please try again."}), 400
 
@@ -1096,7 +1102,10 @@ def resend_otp():
         return jsonify({"success": False, "message": "Max resend attempts reached. Please wait for a new OTP."}), 429
 
     subject = "OTP for Elite Performance Login" if flow == "login" else "OTP for Elite Performance Password Reset"
-    is_expired = (datetime.now(timezone.utc) - record["timestamp"]) > timedelta(minutes=5)
+    stored_time = record["timestamp"]
+    if stored_time.tzinfo is not None:
+        stored_time = stored_time.replace(tzinfo=None)
+    is_expired = (datetime.utcnow() - stored_time) > timedelta(minutes=5)
 
     new_otp = generate_otp()
     body = f"Your OTP is: {new_otp} VALID FOR 5 MINUTES"
@@ -1107,7 +1116,7 @@ def resend_otp():
 
     otp_store.update_one(
         {"email": email, "flow": flow},
-        {"$set": {"otp": new_otp, "timestamp": datetime.now(timezone.utc), "resend_count": resend_count + 1}}
+        {"$set": {"otp": new_otp, "timestamp": datetime.utcnow(), "resend_count": resend_count + 1}}
     )
 
     remaining = 3 - (resend_count + 1)
