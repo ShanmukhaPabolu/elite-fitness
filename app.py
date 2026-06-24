@@ -34,9 +34,9 @@ CORS(app, supports_credentials=True)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'rishik1074@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
-app.config['MAIL_DEFAULT_SENDER'] = ('Elite Performance', os.environ.get('MAIL_USERNAME', 'rishik1074@gmail.com'))
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', '').strip()
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '').strip()
+app.config['MAIL_DEFAULT_SENDER'] = ('Elite Performance', os.environ.get('MAIL_USERNAME', '').strip())
 
 mail = Mail(app)
 
@@ -48,7 +48,7 @@ else:
     genai.configure(api_key=API_KEY)
 
 # MongoDB Configuration
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+MONGO_URI = os.getenv("MONGODB_URI") or os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME = "fitness"
 
 # Global variables for collections
@@ -265,7 +265,7 @@ def send_otp_email(recipient_email, otp, subject, body):
         msg.body = body
         
         if not app.config.get('MAIL_PASSWORD'):
-            logger.warning("MAIL_PASSWORD is not configured. Email will not be sent.")
+            logger.error("MAIL_PASSWORD not configured. Cannot send OTP email.")
             return False, "SMTP_NOT_CONFIGURED"
             
         mail.send(msg)
@@ -978,11 +978,8 @@ def login():
         if success:
             return jsonify({"success": True, "message": "OTP sent to your email."}), 200
         else:
-            msg = f"OTP generated (SMTP not configured, use testing OTP: {otp})"
-            if status != "SMTP_NOT_CONFIGURED":
-                msg = f"OTP generated (Email delivery failed, use testing OTP: {otp})"
-            logger.warning(f"Fallback active: {msg}")
-            return jsonify({"success": True, "message": msg}), 200
+            logger.error(f"Failed to send OTP email. Status: {status}")
+            return jsonify({"success": False, "message": "Failed to send OTP email. Please check email configuration."}), 500
     else:
         return jsonify({"success": False, "message": "Invalid email or password."}), 401
 
@@ -1056,11 +1053,8 @@ def forgot_password():
     if success:
         return jsonify({"success": True, "message": "OTP sent to your email."}), 200
     else:
-        msg = f"OTP generated (SMTP not configured, use testing OTP: {otp})"
-        if status != "SMTP_NOT_CONFIGURED":
-            msg = f"OTP generated (Email delivery failed, use testing OTP: {otp})"
-        logger.warning(f"Fallback active: {msg}")
-        return jsonify({"success": True, "message": msg}), 200
+        logger.error(f"Failed to send OTP email. Status: {status}")
+        return jsonify({"success": False, "message": "Failed to send OTP email. Please check email configuration."}), 500
 
 @app.route('/api/verify-forgot-password-otp', methods=['POST'])
 def verify_forgot_password_otp():
