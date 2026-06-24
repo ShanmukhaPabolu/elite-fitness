@@ -957,6 +957,9 @@ def login():
     email = data.get('email')
     password = data.get('password')
     
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+        
     user = users_collection.find_one({"email": email})
     if user and check_password_hash(user['password'], password):
         otp = generate_otp()
@@ -991,6 +994,9 @@ def verify_login_otp():
         return jsonify({"success": False, "message": "OTP has expired. Please try again."}), 400
         
     if otp == stored_otp:
+        if not is_mongodb_connected():
+            return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+            
         user_email = session.get('temp_user_email')
         user = users_collection.find_one({"email": user_email})
         
@@ -1019,6 +1025,9 @@ def forgot_password():
 
     if not email:
         return jsonify({"success": False, "message": "Email is required."}), 400
+
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
 
     user = users_collection.find_one({"email": email})
     if not user:
@@ -1058,6 +1067,9 @@ def verify_forgot_password_otp():
         for key in ['otp', 'otp_timestamp', 'reset_email', 'resend_count']:
             session.pop(key, None)
         
+        if not is_mongodb_connected():
+            return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+            
         new_hashed_password = generate_password_hash(new_password)
         users_collection.update_one({"email": email}, {"$set": {"password": new_hashed_password}})
         return jsonify({"success": True, "message": "Password updated successfully."}), 200
@@ -1118,6 +1130,9 @@ def reset_password():
     new_password = data.get('new_password')
     user_email = session.get('user_email')
     
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+        
     user = users_collection.find_one({"email": user_email})
     if user and check_password_hash(user['password'], old_password):
         new_hashed_password = generate_password_hash(new_password)
@@ -1132,6 +1147,10 @@ def log_plan():
         return jsonify({"success": False, "message": "User not logged in"}), 401
 
     data = request.json or {}
+    
+    if not is_mongodb_connected():
+        return jsonify({"success": False, "message": "Database not connected. Please try again later."}), 503
+        
     log_entry = {
         "user_email": session.get("user_email"),
         "date": datetime.now(timezone.utc),
